@@ -1,0 +1,424 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>购物车页面</title>
+    <!--字体图标-->
+    <link href="../javaex/pc/css/icomoon.css" rel="stylesheet" />
+    <!--动画-->
+    <link href="../javaex/pc/css/animate.css" rel="stylesheet" />
+    <!--骨架样式-->
+    <link href="../javaex/pc/css/common.css" rel="stylesheet" />
+    <!--皮肤（缇娜）-->
+    <link href="../javaex/pc/css/skin/tina.css" rel="stylesheet" />
+    <!--jquery，不可修改版本-->
+    <script src="../javaex/pc/lib/jquery-1.7.2.min.js"></script>
+    <!--全局动态修改-->
+    <script src="../javaex/pc/js/common.js"></script>
+    <!--核心组件-->
+    <script src="../javaex/pc/js/javaex.min.js"></script>
+    <!--表单验证-->
+    <script src="../javaex/pc/js/javaex-formVerify.js"></script>
+
+    <link href="../AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css" />
+    <link href="../basic/css/demo.css" rel="stylesheet" type="text/css" />
+    <link href="../css/cartstyle.css" rel="stylesheet" type="text/css" />
+    <link href="../css/optstyle.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="../js/jquery.js"></script>
+
+</head>
+
+<body>
+
+    <!--顶部导航条 -->
+    <div class="am-container header">
+        <ul class="message-l">
+            <div class="topMessage">
+                <div class="menu-hd" id="loginAndResister">
+                    <a href="login.html" target="_top" class="h">亲，请登录</a>
+                    <a href="register.html" target="_top">免费注册</a>
+                </div>
+            </div>
+        </ul>
+        <ul class="message-r">
+            <div class="topMessage home">
+                <div class="menu-hd"><a href="index.html" target="_top" class="h">商城首页</a></div>
+            </div>
+            <div class="topMessage my-shangcheng">
+                <div class="menu-hd MyShangcheng"><a id="person" href="../person/information.html" target="_top"><i
+                            class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+            </div>
+            <div class="topMessage mini-cart">
+                <div class="menu-hd"><a id="mc-menu-hd" href="#" target="_top"><i
+                            class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span></a></div>
+            </div>
+
+
+        </ul>
+    </div>
+
+    <!--悬浮搜索框-->
+
+    <div class="nav white" style="margin-top: 80px;">
+
+
+
+        <div class="nav-table">
+            <div class="long-title"><span class="all-goods">全部结果</span></div>
+
+        </div>
+    </div>
+
+    <div class="clear"></div>
+
+    <!--购物车 -->
+    <div class="concent">
+        <div id="cartTable">
+            <div class="cart-table-th">
+                <div class="wp" style="border: orangered solid 1px;">
+                    <div class="th th-chk">
+                        <div id="J_SelectAll1" class="select-all J_SelectAll">
+
+                        </div>
+                    </div>
+                    <div class="th th-item">
+                        <div class="td-inner">商品信息</div>
+                    </div>
+                    <div class="th th-price">
+                        <div class="td-inner">单价</div>
+                    </div>
+                    <div class="th th-amount">
+                        <div class="td-inner">数量</div>
+                    </div>
+                    <div class="th th-sum">
+                        <div class="td-inner">金额</div>
+                    </div>
+                    <div class="th th-op">
+                        <div class="td-inner">操作</div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <tr class="item-list">
+                <div class="bundle  bundle-last ">
+
+                    <div class="clear"></div>
+                    <div class="bundle-main">
+                    </div>
+                </div>
+            </tr>
+            <div class="clear"></div>
+
+            <tr class="item-list">
+                <div class="bundle  bundle-last" id="allGoods">
+                    <h2>正在获取购物车信息</h2>
+                </div>
+            </tr>
+        </div>
+        <div class="clear"></div>
+
+        <div class="float-bar-wrapper" style="border: tomato solid 1px;background-color: white;">
+
+
+            <div class="float-bar-right" style="background-color: white;">
+                <div class="amount-sum">
+                    <span class="txt">已选商品</span>
+                    <em id="J_SelectedItemsCount">0</em><span class="txt">件</span>
+                    <div class="arrow-box">
+                        <span class="selected-items-arrow"></span>
+                        <span class="arrow"></span>
+                    </div>
+                </div>
+                <div class="price-sum">
+                    <span class="txt">合计:</span>
+                    <strong class="price">¥<em id="J_Total">0.00</em></strong>
+                </div>
+                <div class="btn-area">
+                    <a id="J_Go" class="submit-btn submit-btn-disabled" aria-label="请注意如果没有选择宝贝，将无法结算">
+                        <span onclick="getAll()">结&nbsp;算</span></a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer ">
+            <div class="footer-hd ">
+                <p>
+                    <a href="#">商城首页</a>
+                    <b>|</b>
+                    <a href="#">物流</a>
+                </p>
+            </div>
+            <div class="footer-bd ">
+                <p>
+                    <em>©常州ccit版权所有</em>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+<script>
+    var user;
+    window.onload = function () {
+        user = JSON.parse(sessionStorage.getItem("user"));
+        // // console.log(user)
+        if (user != null) {
+            $("#loginAndResister").css("display", "none"); //隐藏div
+        } else {
+            $("#person").attr("href", "login.html");
+        }
+
+
+
+        $.ajax({
+            type: "post",
+            //后端需要调用的地址
+            url: "http://127.0.0.1:8080/ShopSystem/getCarts",
+            dataType: "json",
+            data: {
+                "userId": user.userId,
+            },
+            // contentType: "json/application",
+            //设置超时
+            timeout: 10000,
+            async: true,
+            success: function (response) {
+                // console.log(response);
+
+                if (response.code == "SUCCESS") {
+                    var goodsList = JSON.parse(response.goodsList);
+                    var numList = JSON.parse(response.cartList);
+                    // console.log(goodsList)
+                    // console.log(numList)
+                    var myHtml = "";
+                    for (var i = 0; i < goodsList.length; i++) {
+
+                        myHtml = myHtml + createCarts(goodsList[i], numList[i]);
+                    }
+                    $("#allGoods").html(myHtml);
+
+                } else {
+                    javaex.alert({
+                        content: "购物车信息为空"
+                    });
+                }
+            },
+            error: function (data) {
+                javaex.optTip({
+                    content: "页面信息拉取失败",
+                    type: "error"
+                });
+            },
+            //调用执行后调用的函数
+            complete: function (XMLHttpRequest, textStatus) {
+                if (textStatus == 'timeout') {
+                    uploadAjax.abort(); //取消请求
+                    //超时提示：请求超时，请重试
+                    javaex.optTip({
+                        content: "操作失败",
+                        type: "error"
+                    });
+                    javaex.alert({
+                        content: "请求超时，请重试"
+                    });
+                }
+            }
+        });
+
+    }
+
+    function createCarts(goods, cart) {
+        // console.log(goods);
+        // console.log(cart);
+        if (user != null) {
+            return `
+            <br>
+                    <div class="clear"></div>
+                    <div class="bundle-main" style="border: tomato solid 1px;">
+                        <ul class="item-content clearfix">
+                            <li class="td td-chk">
+                                <div class="cart-checkbox ">
+                                    <input onclick="addTotal(` + cart.num * goods.price + "," + cart.cartId + `)" class="check" id="check_` + cart.cartId + `" name="items[]" value="` + goods.goodsId + `" type="checkbox">
+                                    <label for="J_CheckBox_170769542747"></label>
+                                </div>
+                            </li>
+                            <li class="td td-item">
+                                <div class="item-pic">
+                                    <a href="#" target="_blank" data-title="" class="J_MakePoint" data-point="tbcart.8.12">
+                                        <img style="heigth:80px;width:80px" src="http://localhost:8080/ShopSystem/images/` + goods.imgUrl + `" class="itempic J_ItemImg"></a>
+                                </div>
+                                <div class="item-info">
+                                    <div class="item-basic-info">
+                                        <a href="#" target="_blank" title="" class="item-title J_MakePoint" data-point="tbcart.8.11">` + goods.name + `</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="td td-info">
+                                <div class="item-props ">
+                                    <!-- <span class="sku-line">颜色：10#蜜橘色</span>
+                                    <span class="sku-line">包装：两支手袋装（送彩带）</span>
+                                    <span tabindex="0" class="btn-edit-sku theme-login">修改</span>
+                                    <i class="theme-login am-icon-sort-desc"></i> -->
+                                </div>
+                            </li>
+                            <li class="td td-price">
+                                <div class="item-price price-promo-promo">
+                                    <div class="price-content">
+                                        <div class="price-line" style="height: 8px;">
+
+                                        </div>
+                                        <div class="price-line">
+                                            <em class="J_Price price-now" tabindex="0">` + goods.price + `</em>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="td td-amount">
+                                <div class="amount-wrapper ">
+                                    <div class="item-amount ">
+                                        <div class="sl">
+                                            
+                                            <input class="text_box" name="" type="text" value="` + cart.num + `" style="width:30px;" readonly />
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="td td-sum">
+                                <div class="td-inner">
+                                    <em tabindex="0" class="J_ItemSum number">` + cart.num * goods.price + `</em>
+                                </div>
+                            </li>
+                            <li class="td td-op">
+                                <div class="td-inner">
+
+                                    <a href="javascript:;" data-point-url="#" class="delete" onclick="del(` + cart.cartId + `)">删除</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+            `;
+
+        } else {
+            $("#person").attr("href", "login.html");
+            $("#mc-menu-hd").attr("href", "login.html");
+            // console.log("123");
+        }
+
+    }
+    var selected = [];
+
+    function addTotal(price, id) {
+        // console.log($("#check_" + id));
+        var check = $("#check_" + id);
+        if (check.is(':checked')) {
+            selected.push(id);
+            // console.log($("#J_Total").text())
+            var total = Number($("#J_Total").text()) + price;
+            // console.log(total);
+            // $("#J_SelectedItemsCount").text()
+            var num = Number($("#J_SelectedItemsCount").text()) + 1;
+
+        } else {
+            selected.splice(selected.indexOf(id), 1);
+            var total = Number($("#J_Total").text()) - price;
+            var num = Number($("#J_SelectedItemsCount").text()) - 1;
+        }
+        $("#J_Total").text(total)
+        $("#J_SelectedItemsCount").text(num)
+        // console.log(1)
+    }
+
+    function reload() {
+        window.location.reload(true);
+    }
+
+    function del(id) {
+        // console.log(id)
+        javaex.optTip({
+            content: "数据提交中，请稍候...",
+            type: "submit"
+        });
+        $.ajax({
+            type: "post",
+            //后端需要调用的地址
+            url: "http://127.0.0.1:8080/ShopSystem/delCartGoods",
+            dataType: "json",
+            data: {
+                "cartId": id
+            },
+            // contentType: "json/application",
+            //设置超时
+            timeout: 10000,
+            async: true,
+            success: function (response) {
+                // console.log(response);
+
+                if (response.code == "SUCCESS") {
+                    javaex.optTip({
+                        content: "操作成功",
+                        type: "success"
+                    });
+                    javaex.alert({
+                        content: "删除成功",
+                        callback: "reload()"
+                    });
+
+                } else {
+                    javaex.alert({
+                        content: "删除失败",
+                        callback: "reload()"
+                    });
+                }
+
+            },
+            error: function (data) {
+                javaex.optTip({
+                    content: "操作失败",
+                    type: "error"
+                });
+            },
+            //调用执行后调用的函数
+            complete: function (XMLHttpRequest, textStatus) {
+                if (textStatus == 'timeout') {
+                    uploadAjax.abort(); //取消请求
+                    //超时提示：请求超时，请重试
+                    javaex.optTip({
+                        content: "操作失败",
+                        type: "error"
+                    });
+                    javaex.alert({
+                        content: "请求超时，请重试"
+                    });
+                }
+            }
+        });
+    }
+
+    function getAll() {
+        sessionStorage.setItem("selected", JSON.stringify(selected));
+
+        if (JSON.stringify(selected) == "[]") {
+            javaex.alert({
+                content: "你还没有选择商品呢"
+            });
+        } else {
+            window.location.href = "pay.html";
+        }
+
+
+
+
+    }
+</script>
+
+</html>

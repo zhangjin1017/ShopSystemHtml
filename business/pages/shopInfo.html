@@ -1,0 +1,110 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!--字体图标-->
+    <link href="../../javaex/pc/css/icomoon.css" rel="stylesheet" />
+    <!--动画-->
+    <link href="../../javaex/pc/css/animate.css" rel="stylesheet" />
+    <!--骨架样式-->
+    <link href="../../javaex/pc/css/common.css" rel="stylesheet" />
+    <!--皮肤（缇娜）-->
+    <link href="../../javaex/pc/css/skin/tina.css" rel="stylesheet" />
+    <!--jquery，不可修改版本-->
+    <script src="../../javaex/pc/lib/jquery-1.7.2.min.js"></script>
+    <!--全局动态修改-->
+    <script src="../../javaex/pc/js/common.js"></script>
+    <!--核心组件-->
+    <script src="../../javaex/pc/js/javaex.min.js"></script>
+    <!--表单验证-->
+    <script src="../../javaex/pc/js/javaex-formVerify.js"></script>
+
+    <title>店铺信息</title>
+    <style>
+        .line tr td:first-child {
+            width: 200px;
+            text-align: center;
+            font-weight: 1000;
+            font-size: large;
+        }
+
+        .line tr td:last-child {
+            width: 500px;
+            font-size: large;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!--内容区域-->
+    <div class="list-content">
+        <!--块元素-->
+        <div class="block">
+            <!--banner用来修饰块元素的名称-->
+            <div class="banner">
+                <p class="tab fixed">基本信息</p>
+            </div>
+            <!--正文内容-->
+            <div class="main">
+                <!--主体内容-->
+                <div class="list-content">
+
+                    <!--页面有多个表格时，可以用于标识表格-->
+
+                    <!--正文内容-->
+                    <div class="main">
+                        <table id="table" class="line table color2" style="width: 500px;">
+                            <tr>
+                                <td>姓名：</td>
+                                <td id="username">1</td>
+                            </tr>
+                            <tr>
+                                <td>店铺名：</td>
+                                <td id="shopname">1</td>
+                            </tr>
+                            <tr>
+                                <td>营业执照：</td>
+                                <td id="photo" style="font-size: 13px;" onclick="showImage()">1</td>
+
+                            </tr>
+                            <tr>
+                                <td>手机号：</td>
+                                <td id="phone">1</td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            business = JSON.parse(sessionStorage.getItem("business"));
+            $("#username").html(business.username);
+            $("#shopname").html(business.shopName);
+            $("#phone").html(business.phone);
+            $("#photo").html((business.photoUrl).replace("http://127.0.0.1:8080/ShopSystem/business/", ""));
+
+
+        }
+
+        // obj为当前点击的元素对象
+        function showImage() {
+            var url = $("#photo").text();
+            javaex.dialog({
+                type: "image", // 弹出层类型
+                url: "http://127.0.0.1:8080/ShopSystem/business/" + url // 图片地址
+            });
+        }
+    </script>
+
+
+</body>
+
+
+
+</html>

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+
+    <title>订单管理</title>
+    <!--字体图标-->
+    <link href="../javaex/pc/css/icomoon.css" rel="stylesheet" />
+    <!--动画-->
+    <link href="../javaex/pc/css/animate.css" rel="stylesheet" />
+    <!--骨架样式-->
+    <link href="../javaex/pc/css/common.css" rel="stylesheet" />
+    <!--皮肤（缇娜）-->
+    <link href="../javaex/pc/css/skin/tina.css" rel="stylesheet" />
+    <!--jquery，不可修改版本-->
+    <script src="../javaex/pc/lib/jquery-1.7.2.min.js"></script>
+    <!--全局动态修改-->
+    <script src="../javaex/pc/js/common.js"></script>
+    <!--核心组件-->
+    <script src="../javaex/pc/js/javaex.min.js"></script>
+    <!--表单验证-->
+    <script src="../javaex/pc/js/javaex-formVerify.js"></script>
+    <link href="../AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+
+    <link href="../css/personal.css" rel="stylesheet" type="text/css">
+    <link href="../css/orstyle.css" rel="stylesheet" type="text/css">
+
+    <script src="../AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
+    <script src="../AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+
+</head>
+
+<body>
+    <!--头 -->
+    <header>
+        <article>
+            <div class="mt-logo">
+                <!--顶部导航条 -->
+                <div class="am-container header">
+                    <ul class="message-l">
+                        <div class="topMessage">
+                            <div class="menu-hd" id="loginAndResister" style="display: block;">
+                                <a href="/home/login.html" target="_top" class="h">亲，请登录</a>
+                                <a href="/home/register.html" target="_top">免费注册</a>
+                            </div>
+                        </div>
+
+                    </ul>
+                    <ul class="message-r">
+                        <div class="topMessage home">
+                            <div class="menu-hd"><a href="/home/index.html" target="_top" class="h">商城首页</a></div>
+                        </div>
+                        <div class="topMessage my-shangcheng">
+                            <div class="menu-hd MyShangcheng"><a id="person" href="information.html" target="_top"><i
+                                        class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+                        </div>
+                        <div class="topMessage mini-cart">
+                            <div class="menu-hd"><a id="mc-menu-hd" href="/home/shopcart.html" target="_top"><i
+                                        class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span></a></div>
+                        </div>
+
+
+                    </ul>
+                </div>
+
+                <!--悬浮搜索框-->
+
+                <div class="nav white">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+            </div>
+        </article>
+    </header>
+    <div class="nav-table">
+        <div class="long-title"><span class="all-goods">全部</span></div>
+
+    </div>
+    <b class="line"></b>
+    <div class="center">
+        <div class="col-main">
+            <div class="main-wrap">
+
+                <div class="user-order">
+
+                    <!--标题 -->
+                    <div class="am-cf am-padding">
+                        <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">订单管理</strong></div>
+                    </div>
+                    <hr />
+
+                    <div class="am-tabs am-tabs-d2 am-margin" data-am-tabs>
+
+                        <ul class="am-avg-sm-5 am-tabs-nav am-nav am-nav-tabs">
+                            <li class="am-active"><a href="#tab1">所有订单</a></li>
+                            <li><a href="#tab3">待发货</a></li>
+                            <li><a href="#tab4">待收货</a></li>
+                        </ul>
+
+                        <div class="am-tabs-bd">
+                            <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+                                <div class="order-top">
+                                    <div class="th th-item">
+                                        <td class="td-inner">商品</td>
+                                    </div>
+                                    <div class="th th-price">
+                                        <td class="td-inner">单价</td>
+                                    </div>
+                                    <div class="th th-number">
+                                        <td class="td-inner">数量</td>
+                                    </div>
+                                    <div class="th th-operation">
+                                        <td class="td-inner">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    </div>
+                                    <div class="th th-amount">
+                                        <td class="td-inner">合计</td>
+                                    </div>
+                                    <div class="th th-status">
+                                        <td class="td-inner">交易状态</td>
+                                    </div>
+                                    <div class="th th-change">
+                                        <td class="td-inner">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    </div>
+                                </div>
+
+                                <div class="order-main">
+                                    <div class="order-list" id="allOrders">
+
+                                        <h2>暂无订单信息</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="am-tab-panel am-fade" id="tab3">
+                                <div class="order-top">
+                                    <div class="th th-item">
+                                        <td class="td-inner">商品</td>
+                                    </div>
+                                    <div class="th th-price">
+                                        <td class="td-inner">单价</td>
+                                    </div>
+                                    <div class="th th-number">
+                                        <td class="td-inner">数量</td>
+                                    </div>
+                                    <div class="th th-operation">
+                                        <td class="td-inner">快递单号</td>
+                                    </div>
+                                    <div class="th th-amount">
+                                        <td class="td-inner">合计</td>
+                                    </div>
+                                    <div class="th th-status">
+                                        <td class="td-inner">交易状态</td>
+                                    </div>
+                                    <div class="th th-change">
+                                        <td class="td-inner">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    </div>
+                                </div>
+
+                                <div class="order-main" id="orders1">
+                                    <h2>暂无订单信息</h2>
+                                </div>
+                            </div>
+                            <div class="am-tab-panel am-fade" id="tab4">
+                                <div class="order-top">
+                                    <div class="th th-item">
+                                        <td class="td-inner">商品</td>
+                                    </div>
+                                    <div class="th th-price">
+                                        <td class="td-inner">单价</td>
+                                    </div>
+                                    <div class="th th-number">
+                                        <td class="td-inner">数量</td>
+                                    </div>
+                                    <div class="th th-operation">
+                                        <td class="td-inner">快递单号</td>
+                                    </div>
+                                    <div class="th th-amount">
+                                        <td class="td-inner">合计</td>
+                                    </div>
+                                    <div class="th th-status">
+                                        <td class="td-inner">交易状态</td>
+                                    </div>
+                                    <div class="th th-change">
+                                        <td class="td-inner">交易操作</td>
+                                    </div>
+                                </div>
+
+                                <div class="order-main" id="orders2">
+                                    <h2>暂无订单信息</h2>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--底部-->
+            <div class="footer ">
+                <div class="footer-hd ">
+                    <p>
+                        <a href="#">商城首页</a>
+                        <b>|</b>
+                        <a href="#">物流</a>
+                    </p>
+                </div>
+                <div class="footer-bd ">
+                    <p>
+                        <em>©常州ccit版权所有</em>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <aside class="menu">
+            <ul>
+                <li class="person active">
+                    <a href="#"><i class="am-icon-user"></i>个人中心</a>
+                </li>
+                <li class="person">
+                    <p><i class="am-icon-newspaper-o"></i>个人资料</p>
+                    <ul>
+                        <li> <a href="information.html">个人信息</a></li>
+                        <li> <a href="safety.html">安全设置</a></li>
+                        <li> <a href="address.html">地址管理</a></li>
+                    </ul>
+                </li>
+                <li class="person">
+                    <p><i class="am-icon-balance-scale"></i>我的交易</p>
+                    <ul>
+                        <li><a href="order.html">订单管理</a></li>
+
+                    </ul>
+                </li>
+                <li class="person">
+                    <p><i class="am-icon-dollar"></i>我的vip卡</p>
+                    <ul>
+                        <li> <a href="walletlist.html">账户余额</a></li>
+                    </ul>
+                </li>
+
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+            </ul>
+
+        </aside>
+    </div>
+
+</body>
+<script>
+    window.onload = function () {
+        var user = JSON.parse(sessionStorage.getItem("user"));
+        if (user != null) {
+            $("#loginAndResister").css("display", "none"); //隐藏div
+            javaex.optTip({
+                content: "数据获取中，请稍候...",
+                type: "submit"
+            });
+
+            $.ajax({
+                type: "post",
+                //后端需要调用的地址
+                url: "http://127.0.0.1:8080/ShopSystem/showOrders",
+                dataType: "json",
+                data: {
+                    "userId": user.userId
+                },
+                // contentType: "json/application",
+                //设置超时
+                timeout: 10000,
+                async: true,
+                success: function (response) {
+                    console.log(response);
+
+                    if (response.code == "SUCCESS") {
+                        javaex.optTip({
+                            content: "获取成功",
+                            type: "success"
+                        });
+                        var goodsList = JSON.parse(response.goodsList)
+                        var ordersList = JSON.parse(response.ordersList)
+                        var dateList = JSON.parse(response.dateList)
+                        var html = "";
+                        var html1 = "";
+                        var html2 = "";
+                        for (var i = 0; i < ordersList.length; i++) {
+
+                            console.log(ordersList[i].logistics)
+
+                            if (ordersList[i].type == 0) {
+                                html = html + createAllOrders(goodsList[i], ordersList[i], dateList[i], "待发货");
+                                html1 = html1 + createtable1(goodsList[i], ordersList[i], dateList[i]);
+                            } else if (ordersList[i].type == 1) {
+                                html = html + createAllOrders(goodsList[i], ordersList[i], dateList[i], "待收货");
+                                html2 = html2 + createtable2(goodsList[i], ordersList[i], dateList[i], "确认收货");
+                            } else {
+                                html = html + createAllOrders(goodsList[i], ordersList[i], dateList[i], "已收货");
+                            }
+                        }
+                        $("#allOrders").html(html);
+                        $("#orders1").html(html1);
+                        $("#orders2").html(html2);
+
+                    } else {
+                        javaex.alert({
+                            content: "暂无订单信息"
+                        });
+                    }
+
+                },
+                error: function (data) {
+                    javaex.optTip({
+                        content: "获取失败",
+                        type: "error"
+                    });
+                },
+                //调用执行后调用的函数
+                complete: function (XMLHttpRequest, textStatus) {
+                    if (textStatus == 'timeout') {
+                        uploadAjax.abort(); //取消请求
+                        //超时提示：请求超时，请重试
+                        javaex.optTip({
+                            content: "操作失败",
+                            type: "error"
+                        });
+                        javaex.alert({
+                            content: "请求超时，请重试"
+                        });
+                    }
+                }
+            });
+
+
+
+        } else {
+            $("#person").attr("href", "/home/login.html");
+            $("#mc-menu-hd").attr("href", "/home/login.html");
+        }
+
+
+    }
+
+
+    function createAllOrders(goods, order, date, anniu) {
+        return `
+<!--交易成功-->
+                                        <div class="order-status5">
+                                            <div class="order-title">
+                                                <div class="dd-num">订单编号：<a href="javascript:;">` + order.orderId + `</a></div>
+                                                <span>成交时间：` + date + `</span>
+                                                <!--    <em>店铺：小桔灯</em>-->
+                                            </div>
+                                            <div class="order-content">
+                                                <div class="order-left">
+                                                    <ul class="item-list">
+                                                        <li class="td td-item">
+                                                            <div class="item-pic">
+                                                                <a href="#" class="J_MakePoint">
+                                                                    <img src="http://localhost:8080/ShopSystem/images/` + goods.imgUrl + `" class="itempic J_ItemImg">
+                                                                </a>
+                                                            </div>
+                                                            <div class="item-info">
+                                                                <div class="item-basic-info">
+                                                                    <a href="#">
+                                                                        <p>` + goods.name + `</p>
+                                                                            <br/>
+                                                                            <p>` + goods.info + `</p>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-price">
+                                                            <div class="item-price">
+                                                                ` + goods.price + `
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-number">
+                                                            <div class="item-number">
+                                                                <span>×</span>` + order.num + `
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-operation">
+                                                            <div class="item-operation">
+                                                              
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="order-right">
+                                                    <li class="td td-amount">
+                                                        <div class="item-amount">
+                                                            合计：` + order.num * goods.price + `
+                                                        </div>
+                                                    </li>
+                                                    <div class="move-right">
+                                                        <li class="td td-status">
+                                                            <div class="item-status">
+                                                                <p class="order-info" style="color:red;font-size:20px">` + anniu + `</p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-change">
+                                                            
+                                                        </li>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+`
+    }
+
+    function createtable1(goods, order, date) {
+        return `
+<!--交易成功-->
+                                        <div class="order-status5">
+                                            <div class="order-title">
+                                                <div class="dd-num">订单编号：<a href="javascript:;">` + order.orderId + `</a></div>
+                                                <span>成交时间：` + date + `</span>
+                                                <!--    <em>店铺：小桔灯</em>-->
+                                            </div>
+                                            <div class="order-content">
+                                                <div class="order-left">
+                                                    <ul class="item-list">
+                                                        <li class="td td-item">
+                                                            <div class="item-pic">
+                                                                <a href="#" class="J_MakePoint">
+                                                                    <img src="http://localhost:8080/ShopSystem/images/` + goods.imgUrl + `" class="itempic J_ItemImg">
+                                                                </a>
+                                                            </div>
+                                                            <div class="item-info">
+                                                                <div class="item-basic-info">
+                                                                    <a href="#">
+                                                                        <p>` + goods.name + `</p>
+                                                                            <br/>
+                                                                            <p>` + goods.info + `</p>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-price">
+                                                            <div class="item-price">
+                                                                ` + goods.price + `
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-number">
+                                                            <div class="item-number">
+                                                                <span>×</span>` + order.num + `
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-operation">
+                                                            <div class="item-operation">
+                                                               未发货<br>暂时没有快递单号哦
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="order-right">
+                                                    <li class="td td-amount">
+                                                        <div class="item-amount">
+                                                            合计：` + order.num * goods.price + `
+                                                        </div>
+                                                    </li>
+                                                    <div class="move-right">
+                                                        <li class="td td-status">
+                                                            <div class="item-status">
+                                                                <p class="order-info" style="color:red;font-size:20px">未发货</p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-change">
+                                                          
+                                                        </li>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+`;
+    }
+
+    function createtable2(goods, order, date, anniu) {
+        return `
+<!--交易成功-->
+                                        <div class="order-status5">
+                                            <div class="order-title">
+                                                <div class="dd-num">订单编号：<a href="javascript:;">` + order.orderId + `</a></div>
+                                                <span>成交时间：` + date + `</span>
+                                                <!--    <em>店铺：小桔灯</em>-->
+                                            </div>
+                                            <div class="order-content">
+                                                <div class="order-left">
+                                                    <ul class="item-list">
+                                                        <li class="td td-item">
+                                                            <div class="item-pic">
+                                                                <a href="#" class="J_MakePoint">
+                                                                    <img src="http://localhost:8080/ShopSystem/images/` + goods.imgUrl + `" class="itempic J_ItemImg">
+                                                                </a>
+                                                            </div>
+                                                            <div class="item-info">
+                                                                <div class="item-basic-info">
+                                                                    <a href="#">
+                                                                        <p>` + goods.name + `</p>
+                                                                            <br/>
+                                                                            <p>` + goods.info + `</p>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-price">
+                                                            <div class="item-price">
+                                                                ` + goods.price + `
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-number">
+                                                            <div class="item-number">
+                                                                <span>×</span>` + order.num + `
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-operation">
+                                                            <div class="item-operation">
+                                                                快递单号：` + order.logistics + `
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="order-right">
+                                                    <li class="td td-amount">
+                                                        <div class="item-amount">
+                                                            合计：` + order.num * goods.price + `
+                                                        </div>
+                                                    </li>
+                                                    <div class="move-right">
+                                                        <li class="td td-status">
+                                                            <div class="item-status">
+                                                                <p class="order-info"><a onclick="searchLogistics(` + order.logistics + `)">查看物流</a></p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="td td-change">
+                                                            <div class="am-btn am-btn-danger anniu" onclick="getedGoods(` + order.orderId + `)">
+                                                                ` + anniu + `</div>
+                                                        </li>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+`;
+    }
+
+    function getedGoods(id) {
+        $.ajax({
+            type: "post",
+            //后端需要调用的地址
+            url: "http://127.0.0.1:8080/ShopSystem/confirmOrders",
+            dataType: "json",
+            data: {
+                "orderId": id
+            },
+            // contentType: "json/application",
+            //设置超时
+            timeout: 10000,
+            async: true,
+            success: function (response) {
+                // console.log(response);
+                if (response.code == "SUCCESS") {
+                    javaex.optTip({
+                        content: "操作成功",
+                        type: "success"
+                    });
+                    javaex.alert({
+                        content: "收货成功",
+                        callback: "reload()"
+                    });
+
+
+                } else {
+                    javaex.optTip({
+                        content: "操作失败",
+                        type: "error"
+                    });
+                }
+
+            },
+            error: function (data) {
+                javaex.optTip({
+                    content: "信息获取失败",
+                    type: "error"
+                });
+            },
+            //调用执行后调用的函数
+            complete: function (XMLHttpRequest, textStatus) {
+                if (textStatus == 'timeout') {
+                    uploadAjax.abort(); //取消请求
+                    //超时提示：请求超时，请重试
+                    javaex.optTip({
+                        content: "操作失败",
+                        type: "error"
+                    });
+                    javaex.alert({
+                        content: "请求超时，请重试"
+                    });
+                }
+            }
+        });
+    }
+
+    function reload() {
+        window.location.reload(true);
+    }
+
+    function searchLogistics(id) {
+        sessionStorage.setItem("logistics", id);
+        console.log(id)
+        setTimeout(1000)
+        window.location.href = "logistics.html";
+    }
+</script>
+
+</html>

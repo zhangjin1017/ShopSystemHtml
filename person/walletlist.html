@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+
+    <title>账户明细</title>
+    <!--字体图标-->
+    <link href="../javaex/pc/css/icomoon.css" rel="stylesheet" />
+    <!--动画-->
+    <link href="../javaex/pc/css/animate.css" rel="stylesheet" />
+    <!--骨架样式-->
+    <link href="../javaex/pc/css/common.css" rel="stylesheet" />
+    <!--皮肤（缇娜）-->
+    <link href="../javaex/pc/css/skin/tina.css" rel="stylesheet" />
+    <!--jquery，不可修改版本-->
+    <script src="../javaex/pc/lib/jquery-1.7.2.min.js"></script>
+    <!--全局动态修改-->
+    <script src="../javaex/pc/js/common.js"></script>
+    <!--核心组件-->
+    <script src="../javaex/pc/js/javaex.min.js"></script>
+    <!--表单验证-->
+    <script src="../javaex/pc/js/javaex-formVerify.js"></script>
+    <link href="../AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+
+    <link href="../css/personal.css" rel="stylesheet" type="text/css">
+    <link href="../css/wallet.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../css/anniu.css">
+    <script src="../AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
+    <script src="../AmazeUI-2.4.2/assets/js/amazeui.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <!--头 -->
+    <header>
+        <article>
+            <div class="mt-logo">
+                <!--顶部导航条 -->
+                <div class="am-container header">
+                    <ul class="message-l">
+                        <div class="topMessage home">
+                            <div class="menu-hd"><a href="/home/index.html" target="_top" class="h">商城首页</a></div>
+                        </div>
+                    </ul>
+                    <ul class="message-r">
+
+                        <div class="topMessage my-shangcheng">
+                            <div class="menu-hd MyShangcheng"><a href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+                        </div>
+                        <div class="topMessage mini-cart">
+                            <div class="menu-hd"><a id="mc-menu-hd" href="#" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span></a></div>
+                        </div>
+
+
+                    </ul>
+                </div>
+
+                <!--悬浮搜索框-->
+
+                <div class="nav white">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+            </div>
+        </article>
+    </header>
+    <div class="nav-table">
+        <div class="long-title"><span class="all-goods">全部</span></div>
+
+    </div>
+    <b class="line"></b>
+    <div class="center">
+        <div class="col-main">
+            <div class="main-wrap">
+                <div class="am-cf am-padding">
+                    <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">账户余额</div>
+                </div>
+                <hr>
+                <div class="finance">
+                    <div class="financeText" id="getVipInfo">
+                        <p><span>你还没有会员卡</span></p>
+                        <button class="bt3" style="width: 200px;height: 40px;" onclick="toBeVip()">一键成为会员</button>
+                    </div>
+                    
+                </div>
+
+
+
+            </div>
+            <!--底部-->
+            <div class="footer ">
+                <div class="footer-hd ">
+                    <p>
+                        <a href="#">商城首页</a>
+                        <b>|</b>
+                        <a href="#">物流</a>
+                    </p>
+                </div>
+                <div class="footer-bd ">
+                    <p>
+                        <em>©常州ccit版权所有</em>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <aside class="menu">
+            <ul>
+                <li class="person active">
+                    <a href="#"><i class="am-icon-user"></i>个人中心</a>
+                </li>
+                <li class="person">
+                    <p><i class="am-icon-newspaper-o"></i>个人资料</p>
+                    <ul>
+                        <li> <a href="information.html">个人信息</a></li>
+                        <li> <a href="safety.html">安全设置</a></li>
+                        <li> <a href="address.html">地址管理</a></li>
+                    </ul>
+                </li>
+                <li class="person">
+                    <p><i class="am-icon-balance-scale"></i>我的交易</p>
+                    <ul>
+                        <li><a href="order.html">订单管理</a></li>
+
+                    </ul>
+                </li>
+                <li class="person">
+                    <p><i class="am-icon-dollar"></i>我的vip卡</p>
+                    <ul>
+
+                        <li> <a href="walletlist.html">账户余额</a></li>
+
+                    </ul>
+                </li>
+
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+            </ul>
+
+        </aside>
+    </div>
+
+</body>
+<script>
+window.onload=function(){
+     var user = JSON.parse(sessionStorage.getItem("user"));
+    $.ajax({
+            type: "post",
+            //后端需要调用的地址
+            url: "http://127.0.0.1:8080/ShopSystem/person/getVipInfo",
+            dataType: "json",
+            data: {
+                "userId": user.userId,
+            },
+            // contentType: "json/application",
+            //设置超时
+            timeout: 10000,
+            async: true,
+            success: function(response) {
+                console.log(response);
+
+            if(response.code == "SUCCESS"){
+                var vip = JSON.parse(response.vip);
+                var html = `<p>卡号:<span>`+vip.cardId+`</span></p><br>
+                        <p>可用余额:<span>￥`+vip.money+`</span></p>`;
+            $("#getVipInfo").html(html);
+            }else{
+                    javaex.alert({
+                        content: "你还不是会员"
+                    });
+                }               
+            },
+            error: function(data) {
+                javaex.optTip({
+                    content: "页面信息拉取失败",
+                    type: "error"
+                });
+            },
+            //调用执行后调用的函数
+            complete: function(XMLHttpRequest, textStatus) {
+                if (textStatus == 'timeout') {
+                    uploadAjax.abort(); //取消请求
+                    //超时提示：请求超时，请重试
+                    javaex.optTip({
+                        content: "操作失败",
+                        type: "error"
+                    });
+                    javaex.alert({
+                        content: "请求超时，请重试"
+                    });
+                }
+            }
+        });
+    }
+
+    function reload(){
+        window.location.reload(true);
+    }
+    function toBeVip(){
+        
+        var user = JSON.parse(sessionStorage.getItem("user"));
+        $.ajax({
+            type: "post",
+            //后端需要调用的地址
+            url: "http://127.0.0.1:8080/ShopSystem/person/toBeVip",
+            dataType: "json",
+            data: {
+                "userId": user.userId,
+            },
+            // contentType: "json/application",
+            //设置超时
+            timeout: 10000,
+            async: true,
+            success: function(response) {
+                console.log(response);
+
+            if(response.code == "SUCCESS"){
+                javaex.alert({
+                        content: "你已成功获取VIP卡",
+                        callback:"reload()"
+                    });
+            }              
+            },
+            error: function(data) {
+                javaex.optTip({
+                    content: "页面信息拉取失败",
+                    type: "error"
+                });
+            },
+            //调用执行后调用的函数
+            complete: function(XMLHttpRequest, textStatus) {
+                if (textStatus == 'timeout') {
+                    uploadAjax.abort(); //取消请求
+                    //超时提示：请求超时，请重试
+                    javaex.optTip({
+                        content: "操作失败",
+                        type: "error"
+                    });
+                    javaex.alert({
+                        content: "请求超时，请重试"
+                    });
+                }
+            }
+        });
+    }
+
+</script>
+
+
+</html>

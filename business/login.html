@@ -1,0 +1,107 @@
+<html>
+
+<head>
+
+    <title>后台管理</title>
+    <!--字体图标-->
+    <link href="../javaex/pc/css/icomoon.css" rel="stylesheet" />
+    <!--动画-->
+    <link href="../javaex/pc/css/animate.css" rel="stylesheet" />
+    <!--骨架样式-->
+    <link href="../javaex/pc/css/common.css" rel="stylesheet" />
+    <!--皮肤（缇娜）-->
+    <link href="../javaex/pc/css/skin/tina.css" rel="stylesheet" />
+    <!--jquery，不可修改版本-->
+    <script src="../javaex/pc/lib/jquery-1.7.2.min.js"></script>
+    <!--全局动态修改-->
+    <script src="../javaex/pc/js/common.js"></script>
+    <!--核心组件-->
+    <script src="../javaex/pc/js/javaex.min.js"></script>
+    <!--表单验证-->
+    <script src="../javaex/pc/js/javaex-formVerify.js"></script>
+    <link href="../css/index.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="bg-wrap">
+        <div class="main-cont-wrap login-model">
+            <form id="form">
+                <div class="form-title">
+                    <span>后台登录</span>
+                    <a href="register.html" style="font-size: 21px;margin-left: 170px;">注册</a>
+
+                </div>
+                <div class="form-item">
+                    <span class="form-txt">账号：</span>
+                    <input type="text" class="form-input original" id="username" name="loginName" placeholder="请输入登录账号" data-type="必填" error-pos="32" />
+                </div>
+                <div class="form-item">
+                    <span class="form-txt">密码：</span>
+                    <input type="password" class="form-input original" id="password" placeholder="请输入密码" data-type="必填" error-pos="32" />
+                </div>
+                <div class="form-btn">
+                    <input type="button" onclick="myLogin()" class="ui-button" id="login" value="登录" />
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+
+<script>
+    function myLogin() {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        if (username == null) {
+            javaex.alert({
+                content: "用户名不能为空！"
+            });
+            return;
+        }
+        if (password == null) {
+            javaex.alert({
+                content: "密码不能为空！"
+            });
+            return;
+        }
+        $.ajax({
+            url: "http://127.0.0.1:8080/ShopSystem/businessLogin",
+            data: {
+                "username": username,
+                "password": password
+            },
+            dataType: "json",
+            type: "post",
+            async: false,
+            cache: false,
+            success: function(res) {
+
+                if (res.code == "SUCCESS") {
+                    sessionStorage.setItem("business", res.business)
+                    javaex.alert({
+                        content: "登录成功！",
+                        callback: "toIndex()"
+                    });
+                } else {
+                    javaex.alert({
+                        content: res.code
+                    });
+                }
+
+            },
+            error: function() {
+                javaex.alert({
+                    content: "登录失败，有错误发生！"
+                });
+
+            }
+        });
+    }
+
+
+    function toIndex() {
+        window.location.href = "index.html";
+    }
+</script>
+
+</html>

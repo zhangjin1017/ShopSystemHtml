@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+
+    <title>个人中心</title>
+    <!--字体图标-->
+    <link href="../javaex/pc/css/icomoon.css" rel="stylesheet" />
+    <!--动画-->
+    <link href="../javaex/pc/css/animate.css" rel="stylesheet" />
+    <!--骨架样式-->
+    <link href="../javaex/pc/css/common.css" rel="stylesheet" />
+    <!--皮肤（缇娜）-->
+    <link href="../javaex/pc/css/skin/tina.css" rel="stylesheet" />
+    <!--jquery，不可修改版本-->
+    <script src="../javaex/pc/lib/jquery-1.7.2.min.js"></script>
+    <!--全局动态修改-->
+    <script src="../javaex/pc/js/common.js"></script>
+    <!--核心组件-->
+    <script src="../javaex/pc/js/javaex.min.js"></script>
+    <!--表单验证-->
+    <script src="../javaex/pc/js/javaex-formVerify.js"></script>
+
+    <link href="../AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+
+    <link href="../css/personal.css" rel="stylesheet" type="text/css">
+    <link href="../css/infstyle.css" rel="stylesheet" type="text/css">
+    <script src="../AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
+    <script src="../AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+</head>
+
+<body>
+    <!--头 -->
+    <header>
+        <article>
+            <div class="mt-logo">
+                <!--顶部导航条 -->
+
+                <div class="am-container header">
+                    <ul class="message-l">
+
+                    </ul>
+                    <ul class="message-r">
+                        <div class="topMessage home">
+                            <div class="menu-hd"><a href="/home/index.html" target="_top" class="h">商城首页</a></div>
+                        </div>
+                        <div class="topMessage my-shangcheng">
+                            <div class="menu-hd MyShangcheng"><a id="person" href="information.html" target="_top"><i
+                                        class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+                        </div>
+                        <div class="topMessage mini-cart">
+                            <div class="menu-hd"><a id="mc-menu-hd" href="/home/shopcart.html" target="_top"><i
+                                        class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span></a></div>
+                        </div>
+
+                    </ul>
+                </div>
+                <!--悬浮搜索框-->
+                <div class="nav white">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                <div class="clear"></div>
+            </div>
+            </div>
+        </article>
+    </header>
+    <div class="nav-table">
+        <div class="long-title"><span class="all-goods">全部</span></div>
+    </div>
+    <b class="line"></b>
+    <div class="center">
+        <div class="col-main">
+            <div class="main-wrap">
+                <div class="user-info">
+                    <!--标题 -->
+                    <div class="am-cf am-padding">
+                        <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">个人资料/个人信息</div>
+                    </div>
+                    <hr />
+                    <!--头像 -->
+                    <div class="user-infoPic">
+                        <div class="filePic">
+                            <input type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp" accept="image/*">
+                            <img class="am-circle am-img-thumbnail" src="../images/getAvatar.do.jpg" alt="" />
+                        </div>
+
+                        <p class="am-form-help">头像</p>
+
+                        <div class="info-m" id="username">
+                            <div><b><i>你还没有登录</i></b></div>
+                            <div class="vip">
+                                <span></span><a href="#">会员专享</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--个人信息 -->
+                    <div class="info-main">
+                        <form class="am-form am-form-horizontal">
+                            <div class="am-form-group">
+                                <label for="user-name" class="am-form-label">姓名</label>
+                                <div class="am-form-content">
+                                    <input type="text" id="name1" placeholder="姓名">
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label class="am-form-label">性别</label>
+                                <div class="am-form-content sex">
+                                    <label class="am-radio-inline">
+                                        <input type="radio" name="radio10" value="男" id="sex1" data-am-ucheck> 男
+                                    </label>
+                                    <label class="am-radio-inline">
+                                        <input type="radio" name="radio10" value="女" id="sex2" data-am-ucheck> 女
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="user-birth" class="am-form-label">生日</label>
+                                <div class="am-form-content">
+                                    <input type="text" id="birth1" placeholder="生日" />
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="info-btn">
+                                <div class="am-btn am-btn-danger" onclick="saveInfo()">保存修改</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--底部-->
+            <div class="footer ">
+                <div class="footer-hd ">
+                    <p>
+                        <a href="#">商城首页</a>
+                        <b>|</b>
+                        <a href="#">物流</a>
+                    </p>
+                </div>
+                <div class="footer-bd ">
+                    <p>
+                        <em>©常州ccit版权所有</em>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <aside class="menu">
+            <ul>
+                <li class="person active">
+                    <a href="#"><i class="am-icon-user"></i>个人中心</a>
+                </li>
+                <li class="person">
+                    <p><i class="am-icon-newspaper-o"></i>个人资料</p>
+                    <ul>
+                        <li> <a href="information.html">个人信息</a></li>
+                        <li> <a href="safety.html">安全设置</a></li>
+                        <li> <a href="address.html">地址管理</a></li>
+                    </ul>
+                </li>
+                <li class="person">
+                    <p><i class="am-icon-balance-scale"></i>我的交易</p>
+                    <ul>
+                        <li><a href="order.html">订单管理</a></li>
+
+                    </ul>
+                </li>
+                <li class="person">
+                    <p><i class="am-icon-dollar"></i>我的vip卡</p>
+                    <ul>
+                        <li> <a href="walletlist.html">账户余额</a></li>
+                    </ul>
+                </li>
+
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+            </ul>
+
+        </aside>
+    </div>
+
+</body>
+<script>
+    var user;
+    var birth1;
+    window.onload = function () {
+        user = JSON.parse(sessionStorage.getItem("user"));
+
+
+
+
+
+
+        if (user != null) {
+            var html = ` <div><b>用户名：<i>` + user.username + `</i></b></div>
+                            <div class="vip">
+                                <span></span><a href="#">会员专享</a>
+                            </div>`;
+            $("#username").html(html);
+
+            $.ajax({
+                type: "post",
+                //后端需要调用的地址
+                url: "http://127.0.0.1:8080/ShopSystem/person/getInfo",
+                dataType: "json",
+                data: {
+                    "userId": user.userId,
+                },
+                // contentType: "json/application",
+                //设置超时
+                timeout: 10000,
+                async: true,
+                success: function (response) {
+                    console.log(response);
+
+                    if (response.code == "SUCCESS") {
+                        var person = JSON.parse(response.person);
+                        if (person != null) {
+                            console.log(person.name);
+                            $("#name1").val(person.name);
+                            if (person.sex == "男") {
+                                $("#sex1").attr('checked', 'true');
+                            }
+                            if (person.sex == "女") {
+                                $("#sex2").attr('checked', 'true');
+                            }
+
+                            birth1 = response.birth
+                            javaex.date({
+                                id: "birth1",		// 承载日期组件的id
+                                monthNum: 1,		// 1代表选择单日日期
+                                date: response.birth,	// 选择的日期
+                                // 重新选择日期之后返回一个时间对象
+                                callback: function (rtn) {
+                                    // alert(rtn.date);
+                                    birth1 = rtn.date
+                                }
+                            });
+                        }
+                    }
+                },
+                error: function (data) {
+                    javaex.optTip({
+                        content: "页面信息拉取失败",
+                        type: "error"
+                    });
+                },
+                //调用执行后调用的函数
+                complete: function (XMLHttpRequest, textStatus) {
+                    if (textStatus == 'timeout') {
+                        uploadAjax.abort(); //取消请求
+                        //超时提示：请求超时，请重试
+                        javaex.optTip({
+                            content: "操作失败",
+                            type: "error"
+                        });
+                        javaex.alert({
+                            content: "请求超时，请重试"
+                        });
+                    }
+                }
+            });
+        } else {
+            $("#person").attr("href", "/home/login.html");
+            console.log("123");
+            $("#mc-menu-hd").attr("href", "/home/login.html");
+        }
+
+    }
+
+
+    function saveInfo() {
+        console.log(user)
+        var sex1 = $('input:radio:checked').val();
+        var birth1 = $("#birth1").val();
+        console.log(user.userId)
+        console.log(birth1);
+        console.log(sex1);
+        var name1 = $("#name1").val();
+
+        $.ajax({
+            type: "post",
+            //后端需要调用的地址
+            url: "http://127.0.0.1:8080/ShopSystem/person/updateInfo",
+            dataType: "json",
+            data: {
+                "userId": user.userId,
+                "name": name1,
+                "sex": sex1,
+                "birth": birth1
+            },
+            // contentType: "json/application",
+            //设置超时
+            timeout: 10000,
+            async: true,
+            success: function (response) {
+                console.log(response);
+                if (response.code == "SUCCESS") {
+                    javaex.alert({
+                        content: "信息修改成功",
+                        callback: function () {
+                            window.location.reload(true);
+                        }
+                    });
+
+                } else {
+                    javaex.alert({
+                        content: "信息修改失败"
+                    });
+                }
+            },
+            error: function (data) {
+                javaex.optTip({
+                    content: "错误",
+                    type: "error"
+                });
+            },
+
+            //调用执行后调用的函数
+            complete: function (XMLHttpRequest, textStatus) {
+                if (textStatus == 'timeout') {
+                    uploadAjax.abort(); //取消请求
+                    //超时提示：请求超时，请重试
+                    javaex.optTip({
+                        content: "操作失败",
+                        type: "error"
+                    });
+                    javaex.alert({
+                        content: "请求超时，请重试"
+                    });
+                }
+            }
+        });
+    }
+
+</script>
+
+</html>

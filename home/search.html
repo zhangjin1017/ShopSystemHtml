@@ -1,0 +1,452 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>搜索页面</title>
+    <!--字体图标-->
+    <link href="../javaex/pc/css/icomoon.css" rel="stylesheet" />
+    <!--动画-->
+    <link href="../javaex/pc/css/animate.css" rel="stylesheet" />
+    <!--骨架样式-->
+    <link href="../javaex/pc/css/common.css" rel="stylesheet" />
+    <!--皮肤（缇娜）-->
+    <link href="../javaex/pc/css/skin/tina.css" rel="stylesheet" />
+    <!--jquery，不可修改版本-->
+    <script src="../javaex/pc/lib/jquery-1.7.2.min.js"></script>
+    <!--全局动态修改-->
+    <script src="../javaex/pc/js/common.js"></script>
+    <!--核心组件-->
+    <script src="../javaex/pc/js/javaex.min.js"></script>
+    <!--表单验证-->
+    <script src="../javaex/pc/js/javaex-formVerify.js"></script>
+
+    <link href="../AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css" />
+    <link href="../AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css" />
+
+    <link href="../basic/css/demo.css" rel="stylesheet" type="text/css" />
+
+    <link href="../css/seastyle.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="../basic/js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="../js/script.js"></script>
+</head>
+
+<body>
+
+    <!--顶部导航条 -->
+    <div class="am-container header">
+        <ul class="message-l">
+            <div class="topMessage">
+                <div class="menu-hd" id="loginAndResister" style="display: block;">
+                    <a href="login.html" target="_top" class="h">亲，请登录</a>
+                    <a href="register.html" target="_top">免费注册</a>
+                </div>
+            </div>
+        </ul>
+        <ul class="message-r">
+            <div class="topMessage home">
+                <div class="menu-hd"><a href="index.html" target="_top" class="h">商城首页</a></div>
+            </div>
+            <div class="topMessage my-shangcheng">
+                <div class="menu-hd MyShangcheng"><a id="person" href="/person/information.html" target="_top"><i
+                            class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+            </div>
+            <div class="topMessage mini-cart">
+                <div class="menu-hd"><a id="mc-menu-hd" href="shopcart.html" target="_top"><i
+                            class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span></a></div>
+            </div>
+
+        </ul>
+    </div>
+
+    <!--悬浮搜索框-->
+
+    <div class="nav white">
+        <div class="logo"><img src="../images/logo.png" /></div>
+
+        <div class="search-bar pr">
+            <!-- <a name="index_none_header_sysc" href="#"></a> -->
+            <form>
+                <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="请输入商品关键字(不写则显示所有商品)"
+                    autocomplete="off">
+                <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="button"
+                    onclick="searchGoods()">
+            </form>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+    <b class="line"></b>
+    <div class="search">
+        <div class="search-list">
+            <div class="nav-table">
+                <div class="long-title"><span class="all-goods">全部结果</span></div>
+
+            </div>
+
+
+            <div class="am-g am-g-fixed">
+                <div class="am-u-sm-12 am-u-md-12">
+                    <div class="theme-popover">
+                        <div class="searchAbout">
+
+
+                        </div>
+                        <ul class="select">
+                            <p class="title font-normal">
+
+                                <span class="fl" id="name"></span>
+                                <span class="total fl">搜索到<strong class="num" id="totalNum"></strong>件相关商品</span>
+
+                            </p>
+                            <div class="clear"></div>
+
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="search-content">
+                        <div class="sort">
+                            <li class="first"><a title="综合">综合排序</a></li>
+                            <!-- <li><a title="价格">价格优先</a></li> -->
+                        </div>
+                        <div class="clear"></div>
+
+                        <ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes" id="goodsList">
+                            <h1 style="color:orangered;font-size: 30px;text-align: center;">正在搜索!</h1>
+                        </ul>
+
+                    </div>
+
+                    <div class="clear"></div>
+                    <!--分页 -->
+                    <div class="page">
+                        <ul id="page" class="pagination"></ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="footer ">
+                <div class="footer-hd ">
+                    <p>
+                        <a href="# ">常州信息</a>
+                        <b>|</b>
+                        <a href="# ">商城首页</a>
+
+                        <b>|</b>
+                        <a href="# ">物流</a>
+                    </p>
+                </div>
+                <div class="footer-bd ">
+                    <p>
+                        <em>©常州ccit版权所有</em>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--菜单 -->
+    <div class=tip>
+        <div id="sidebar">
+            <div id="wrap">
+                <div id="prof" class="item ">
+                    <a href="# ">
+                        <span class="setting "></span>
+                    </a>
+                    <div class="ibar_login_box status_login " id="userInf">
+                        <div class="avatar_box ">
+                            <p class="avatar_imgbox "><img src="../images/no-img_mid_.jpg " /></p>
+                            <ul class="user_info ">
+                                <li>
+                                    <br /> 你还没有登录
+                                    <br /> 左上角去登录
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- <div class="login_btnbox ">
+                            <a onclick="toMyOrder()" class="login_order ">我的订单</a> &nbsp;&nbsp;&nbsp;
+                            <a onclick="logout()" class="login_order ">注销登录</a>
+                        </div> -->
+                    </div>
+
+                </div>
+                <div id="shopCart " class="item ">
+                    <a href="shopcart.html">
+                        <span class="message "></span>
+                    </a>
+                    <p>
+                        购物车
+                    </p>
+
+                </div>
+
+
+                <!--回到顶部 -->
+                <div id="quick_links_pop " class="quick_links_pop hide "></div>
+
+            </div>
+
+        </div>
+
+
+        <div id="broadcast-content " class="nav-content ">
+            <div class="nav-con-close ">
+                <i class="am-icon-angle-right am-icon-fw "></i>
+            </div>
+            <div>
+                充值
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../basic/js/quick_links.js"></script>
+
+    <div class="theme-popover-mask"></div>
+
+</body>
+
+<script>
+    function logout() {
+        sessionStorage.clear();
+        location.href = "login.html"
+    }
+
+    function toMyOrder() {
+        window.location.href = "/person/order.html"
+    }
+    var user
+    window.onload = function () {
+        user = JSON.parse(sessionStorage.getItem("user"));
+        if (user != null) {
+            $("#loginAndResister").css("display", "none"); //隐藏div
+            var html = `
+            <div class="avatar_box ">
+                            <p class="avatar_imgbox "><img src="../images/no-img_mid_.jpg " /></p>
+                            <ul class="user_info ">
+                                <li>用户名：
+                                    ` + user.username + `
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="login_btnbox ">
+                            <a onclick="toMyOrder()" class="login_order ">我的订单</a> &nbsp;&nbsp;&nbsp;
+                            <a onclick="logout()" class="login_order ">注销登录</a>
+                        </div> `
+            $("#userInf").html(html);
+
+        } else {
+            $("#person").attr("href", "login.html");
+            $("#mc-menu-hd").attr("href", "login.html");
+        }
+        searchInput = sessionStorage.getItem("searchInfo");
+        console.log(searchInput)
+        var type = 1;
+        if (searchInfo == "") {
+            type = 0;
+        }
+        submitInfo(1, searchInput, type);
+    }
+
+
+    function reload() {
+        window.location.reload(true);
+    }
+    var searchInfo;
+    var type;
+    var pageCount, totalNum;
+
+    function searchGoods() {
+        searchInfo = $("#searchInput").val();
+        type = 1;
+        if (searchInfo == "") {
+            type = 0;
+        }
+        console.log(searchInfo);
+        javaex.optTip({
+            content: "数据提交中，请稍候...",
+            type: "submit"
+        });
+        submitInfo(1, searchInfo, type);
+    }
+    var searchInput;
+    var goodsList, businessList;
+
+    function submitInfo(page, searchInfo, type) {
+        $.ajax({
+            type: "post",
+            //后端需要调用的地址
+            url: "http://127.0.0.1:8080/ShopSystem/goods/searchGoods",
+            dataType: "json",
+            data: {
+                "searchInfo": searchInfo,
+                "searchInfoType": type,
+                "page": 1,
+                "pageSize": 8
+            },
+            // contentType: "json/application",
+            //设置超时
+            timeout: 10000,
+            async: true,
+            success: function (response) {
+
+                console.log(response);
+                if (response.code == "SUCCESS") {
+                    sessionStorage.setItem("searchInfo", searchInfo);
+                    goodsList = JSON.parse(response.goodsList);
+                    businessList = JSON.parse(response.businessList);
+                    console.log(goodsList);
+                    pageCount = response.pageCount;
+                    totalNum = response.totalNum;
+                    console.log(pageCount + ":" + totalNum)
+                    create(goodsList, businessList);
+                    if (user != null)
+                        $("#name").html("亲爱的" + user.username + ",");
+                    $("#totalNum").html(totalNum);
+                    currentPage = 1;
+                    $("#page").empty();
+                    javaex.page({
+                        id: "page",
+                        pageCount: pageCount, // 总页数
+                        currentPage: currentPage, // 默认选中第几页
+                        isShowJumpPage: true, // 是否显示跳页
+                        totalNum: totalNum, // 总条数，不填时，不显示
+                        position: "right",
+                        callback: function (rtn) {
+                            console.log(searchInfo);
+                            $.ajax({
+                                type: "post",
+                                //后端需要调用的地址
+                                url: "http://127.0.0.1:8080/ShopSystem/goods/searchGoods",
+                                dataType: "json",
+                                data: {
+                                    "searchInfo": searchInfo,
+                                    "searchInfoType": type,
+                                    "page": rtn.pageNum,
+                                    "pageSize": 8
+                                },
+                                // contentType: "json/application",
+                                //设置超时
+                                timeout: 10000,
+                                async: true,
+                                success: function (response) {
+                                    console.log(response);
+                                    if (response.code == "SUCCESS") {
+                                        goodsList = JSON.parse(response.goodsList);
+                                        businessList = JSON.parse(response.businessList);
+                                        console.log(goodsList);
+                                        pageCount = response.pageCount;
+                                        totalNum = response.totalNum;
+                                        create(goodsList, businessList);
+                                        javaex.optTip({
+                                            content: "操作成功",
+                                            type: "success"
+                                        });
+                                    }
+                                },
+                                error: function (data) {
+                                    javaex.optTip({
+                                        content: "页面信息拉取失败",
+                                        type: "error"
+                                    });
+                                },
+                                //调用执行后调用的函数
+                                complete: function (XMLHttpRequest, textStatus) {
+                                    if (textStatus == 'timeout') {
+                                        uploadAjax.abort(); //取消请求
+                                        //超时提示：请求超时，请重试
+                                        javaex.optTip({
+                                            content: "操作失败",
+                                            type: "error"
+                                        });
+                                        javaex.alert({
+                                            content: "请求超时，请重试"
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    });
+                    javaex.optTip({
+                        content: "操作成功",
+                        type: "success"
+                    });
+
+                } else if (response.code == "EMPTY") {
+                    javaex.alert({
+                        content: "未搜索到" + searchInfo + "有关商品，请重试",
+                        callback: "reload()"
+                    });
+                }
+            },
+            error: function (data) {
+                javaex.optTip({
+                    content: "页面信息拉取失败",
+                    type: "error"
+                });
+            },
+            //调用执行后调用的函数
+            complete: function (XMLHttpRequest, textStatus) {
+                if (textStatus == 'timeout') {
+                    uploadAjax.abort(); //取消请求
+                    //超时提示：请求超时，请重试
+                    javaex.optTip({
+                        content: "操作失败",
+                        type: "error"
+                    });
+                    javaex.alert({
+                        content: "请求超时，请重试"
+                    });
+                }
+            }
+        });
+    };
+
+    function create(goodsList, businessList) {
+        var html = "";
+        for (var i = 0; i < goodsList.length; i++) {
+            html += creatLi(goodsList[i], businessList[i]);
+        }
+        $("#goodsList").html(html);
+    }
+
+    function creatLi(goods, business) {
+        var html = ` <li>
+                    <div class="i-pic limit" onclick="toIntroduction(` + goods.goodsId + `)">
+                        <img src="http://localhost:8080/ShopSystem/images/` + goods.imgUrl + `" />
+                        <p class="title fl">` + goods.name + `</p>
+                        <p class="price fl">
+                            <b>¥</b>
+                            <strong>` + goods.price + `</strong>
+                        </p>
+                        <p class="number fl">
+                            店铺：<span>` + business.shopName + `</span>
+                        </p>
+                    </div>
+                    </li>`;
+
+        return html;
+
+    };
+
+    function toIntroduction(id) {
+        console.log(id)
+        for (var i = 0; i < goodsList.length; i++) {
+            if (goodsList[i].goodsId == id) {
+                sessionStorage.setItem("goods", JSON.stringify(goodsList[i]));
+                sessionStorage.setItem("business", JSON.stringify(businessList[i]));
+                window.location.href = "introduction.html"
+            }
+        }
+
+
+    }
+</script>
+
+</html>

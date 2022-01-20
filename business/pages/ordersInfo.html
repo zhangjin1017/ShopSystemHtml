@@ -1,0 +1,552 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!--字体图标-->
+    <link href="../../javaex/pc/css/icomoon.css" rel="stylesheet" />
+    <!--动画-->
+    <link href="../../javaex/pc/css/animate.css" rel="stylesheet" />
+    <!--骨架样式-->
+    <link href="../../javaex/pc/css/common.css" rel="stylesheet" />
+    <!--皮肤（缇娜）-->
+    <link href="../../javaex/pc/css/skin/tina.css" rel="stylesheet" />
+    <!--jquery，不可修改版本-->
+    <script src="../../javaex/pc/lib/jquery-1.7.2.min.js"></script>
+    <!--全局动态修改-->
+    <script src="../../javaex/pc/js/common.js"></script>
+    <!--核心组件-->
+    <script src="../../javaex/pc/js/javaex.min.js"></script>
+    <!--表单验证-->
+    <script src="../../javaex/pc/js/javaex-formVerify.js"></script>
+    <link href="../../css/index.css" rel="stylesheet" />
+    <title></title>
+
+</head>
+
+<body>
+    <!--主体内容-->
+    <div class="list-content">
+        <!--块元素-->
+        <div class="block">
+            <!--页面有多个表格时，可以用于标识表格-->
+            <h2>订单管理</h2>
+            <!--右上角的返回按钮-->
+            <a href="javascript:history.back();">
+                <button class="button indigo radius-3" style="position: absolute;right: 20px;top: 16px;"><span class="icon-arrow_back"></span> 返回</button>
+            </a>
+
+            <!--正文内容-->
+            <div class="main">
+                <!--表格上方的搜索操作-->
+                <div class="admin-search">
+                    <div class="input-group">
+                        <input type="text" class="text" id="sousuo" placeholder="用户名" />
+                        <button class="button blue" onclick="sousuo()">搜索</button>
+                    </div>
+                </div>
+
+                <!--表格上方的操作元素，添加、删除等-->
+                <!-- <div class="operation-wrap">
+                    <div class="buttons-wrap">
+                        <button onclick="gotoAddGoods()" class="button blue radius-3"><span class="icon-plus"></span>添加</button>
+                        <button id="del" class="button red radius-3 disable"><span class="icon-close2"></span> 删除(仅供测试）</button>
+                    </div>
+                </div> -->
+
+                <table id="table" class="table color2">
+                    <thead>
+                        <tr>
+                            <!-- <th class="checkbox"><input type="checkbox" class="fill listen-1" /> </th> -->
+                            <th>商品名</th>
+                            <th>买家</th>
+                            <th>下单时间</th>
+                            <th>下单数量</th>
+                            <th>状态</th>
+                            <th>快递单号</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="orderInfo">
+                    </tbody>
+                </table>
+                <div class="page">
+                    <ul id="page" class="pagination"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function reload() {
+        window.location.reload(true);
+    }
+
+
+    var business;
+
+    var pageCount, perPageCount = 10,
+        totalNum;
+    window.onload = function() {
+        business = JSON.parse(sessionStorage.getItem("business"));
+        // console.log(business);
+        // console.log(business.businessId);
+        $("#page").empty();
+        javaex.optTip({
+            content: "数据获取中，请稍候...",
+            type: "submit"
+        });
+        $.ajax({
+
+            url: "http://127.0.0.1:8080/ShopSystem/getAllOrders",
+            data: {
+                "businessId": business.businessId,
+                "perPageCount": perPageCount,
+                "currentPage": 1
+            },
+            dataType: "json",
+            type: "post",
+            async: false,
+            cache: false,
+            success: function(res) {
+                console.log(res)
+                if (res.code == "SUCCESS") {
+                    javaex.optTip({
+                        content: "操作成功",
+                        type: "success"
+                    });
+                    var html = "";
+                    var dateList = JSON.parse(res.dateList);
+                    var goodsList = JSON.parse(res.goodsList);
+                    var orderList = JSON.parse(res.ordersList);
+                    var userList = JSON.parse(res.userList);
+
+                    var zhuangtai = "";
+                    for (var i = 0; i < orderList.length; i++) {
+                        if (orderList[i].type == 1) {
+                            zhuangtai = "已发货"
+                        } else if (orderList[i].type == 0) {
+                            zhuangtai = "待发货"
+                        } else {
+                            zhuangtai = "已收货"
+                        }
+                        html = html + createordersInfo(orderList[i], goodsList[i], userList[i].username, zhuangtai, dateList[i]);
+                        // console.log(html)
+                    }
+                    console.log(html)
+                    $("#orderInfo").html(html);
+                    pageCount = res.pageCount;
+                    totalNum = res.totalNum;
+                    $("#page").empty();
+                    javaex.page({
+                        id: "page",
+                        pageCount: pageCount, // 总页数
+                        currentPage: 1, // 默认选中第几页
+                        perPageCount: perPageCount, // 每页显示多少条，不填时，不显示该条数选择控件
+                        isShowJumpPage: true, // 是否显示跳页
+                        totalNum: totalNum, // 总条数，不填时，不显示
+                        position: "right",
+                        callback: function(rtn) {
+                            // console.log("当前选中的页数：" + rtn.pageNum);
+                            // console.log("每页显示条数：" + rtn.perPageCount);
+                            $.ajax({
+                                url: "http://127.0.0.1:8080/ShopSystem/getAllOrders",
+                                data: {
+                                    "businessId": business.businessId,
+                                    "perPageCount": rtn.perPageCount,
+                                    "currentPage": rtn.pageNum
+                                },
+                                dataType: "json",
+                                type: "post",
+                                async: false,
+                                cache: false,
+                                success: function(res) {
+                                    // console.log(res)
+                                    if (res.code == "SUCCESS") {
+                                        javaex.optTip({
+                                            content: "操作成功",
+                                            type: "success"
+                                        });
+                                        var html = "";
+                                        var dateList = JSON.parse(res.dateList);
+                                        var goodsList = JSON.parse(res.goodsList);
+                                        var orderList = JSON.parse(res.ordersList);
+                                        var userList = JSON.parse(res.userList);
+
+                                        var zhuangtai = "";
+                                        for (var i = 0; i < orderList.length; i++) {
+                                            if (orderList[i].type == 1) {
+                                                zhuangtai = "已发货"
+                                            } else if (orderList[i].type == 0) {
+                                                zhuangtai = "待发货"
+                                            } else {
+                                                zhuangtai = "已收货"
+                                            }
+                                            html = html + createordersInfo(orderList[i], goodsList[i], userList[i].username, zhuangtai, dateList[i]);
+                                            // console.log(html)
+                                        }
+                                        // console.log(html)
+                                        $("#orderInfo").html(html);
+                                        pageCount = res.pageCount;
+                                        totalNum = res.totalNum;
+                                    } else {
+                                        javaex.optTip({
+                                            content: "操作失败",
+                                            type: "error"
+                                        });
+                                        javaex.alert({
+                                            content: res.code
+                                        });
+
+                                    }
+                                    javaex.render();
+                                },
+                                error: function() {
+                                    javaex.optTip({
+                                        content: "操作失败",
+                                        type: "error"
+                                    });
+                                    javaex.alert({
+                                        content: "有错误发生！"
+                                    });
+
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    javaex.optTip({
+                        content: "操作失败",
+                        type: "error"
+                    });
+                    javaex.alert({
+                        content: res.code
+                    });
+
+                }
+                javaex.render();
+            },
+            error: function() {
+                javaex.optTip({
+                    content: "操作失败",
+                    type: "error"
+                });
+                javaex.alert({
+                    content: "有错误发生！"
+                });
+
+            }
+        });
+    }
+
+
+
+    function createordersInfo(order, good, userName, zhuangtai, date) {
+        var html = "";
+        html = html + `<tr>
+                    <td>` + good.name + `</td>
+                    <td>` + userName + `</td>
+                
+                    <td>` + date + `</td>
+                    <td>` + order.num + `</td>
+                    <td style="color:red">` + zhuangtai + `</td>`
+        if (order.type == 0) {
+            html = html + `<td>暂无快递单号</td>` +
+                `<td> <button class="button yellow" onclick="addLogisticsId(` + order.orderId + `)">发货</button></td >`
+        } else if (order.type == 1) {
+            html = html + `<td>` + order.logistics + `</td>` +
+                `<td> <button class="button yellow" onclick="addLogisticsId(` + order.orderId + `)">修改快递单号</button>
+                <button class="button yellow" onclick="gotoLogistics(` + order.logistics + `)">查看物流</button></td >`
+        } else {
+            html = html + `<td>` + order.logistics + `</td>` +
+                `<td> <button class="button yellow" onclick="gotoLogistics(` + order.logistics + `)">查看物流</button></td >`
+        }
+        return html;
+
+    }
+
+    function addLogisticsId(id) {
+        javaex.alert({
+            content: `
+            快递单号：<input type="text" id="logId"  class="text" placeholder="请输入快递单号" autocomplete="off" />
+                    `,
+            width: 500,
+            maxHeight: 200,
+            callback: "addLogId(" + id + ")"
+        });
+    }
+
+    function reload() {
+        window.location.reload(true);
+    }
+
+    function addLogId(id) {
+        var logisticsId = $("#logId").val();
+        // console.log(logisticsId)
+        javaex.optTip({
+            content: "数据提交中，请稍候...",
+            type: "submit"
+        });
+        $.ajax({
+            type: "post",
+            //后端需要调用的地址
+            url: "http://127.0.0.1:8080/ShopSystem/updateLogisticsId",
+            dataType: "json",
+            data: {
+                "logisticsId": logisticsId,
+                "orderId": id
+            },
+            // contentType: "json/application",
+            //设置超时
+            timeout: 10000,
+            async: true,
+            success: function(response) {
+                if (response.code == "SUCCESS") {
+                    javaex.optTip({
+                        content: "操作成功",
+                        type: "success"
+                    });
+                    javaex.alert({
+                        content: "修改成功",
+                        callback: "reload()"
+                    });
+
+                } else {
+                    javaex.optTip({
+                        content: "操作失败",
+                        type: "error"
+                    });
+                    javaex.alert({
+                        content: response.message,
+                    });
+                }
+            },
+            error: function(data) {
+                javaex.optTip({
+                    content: "操作失败",
+                    type: "error"
+                });
+            }
+        });
+    }
+
+    function gotoLogistics(id) {
+        console.log(id)
+        $.ajax({
+            type: "get",
+            //后端需要调用的地址
+            url: "http://127.0.0.1:8080/ShopSystem/getLogistics",
+            dataType: "json",
+            data: {
+                "postId": id + ""
+            },
+            // contentType: "json/application",
+            //设置超时
+            timeout: 10000,
+            async: true,
+            success: function(response) {
+                console.log(response);
+                javaex.optTip({
+                    content: "快递信息获取成功",
+                    type: "success"
+                });
+                var html = "";
+                // console.log(id)
+                var list = response.data
+                for (var i = 0; i < list.length; i++) {
+                    html = html + createInfo2(list[i]);
+                }
+                javaex.alert({
+                    content: html,
+                    width: 700,
+                    maxHeight: 300
+                });
+
+            },
+            error: function(data) {
+                javaex.optTip({
+                    content: "页面信息拉取失败",
+                    type: "error"
+                });
+            },
+            //调用执行后调用的函数
+            complete: function(XMLHttpRequest, textStatus) {
+                if (textStatus == 'timeout') {
+                    uploadAjax.abort(); //取消请求
+                    //超时提示：请求超时，请重试
+                    javaex.optTip({
+                        content: "操作失败",
+                        type: "error"
+                    });
+                    javaex.alert({
+                        content: "请求超时，请重试"
+                    });
+                }
+            }
+        });
+    }
+
+    function createInfo2(info) {
+        return `
+        <li class="latest">
+                 <div class="time-list">
+                 <span class="date">` + info.time + `</span><p class="text">` + info.context + `</p>
+                </div>
+                <br>
+        </li>
+        `;
+    }
+
+
+    function sousuo() {
+        var sousuo = $("#sousuo").val();
+        $("#page").empty();
+        javaex.optTip({
+            content: "数据提交中，请稍候...",
+            type: "submit"
+        });
+        $.ajax({
+
+            url: "http://127.0.0.1:8080/ShopSystem/searchOrderByName",
+            data: {
+                "name": sousuo,
+                "perPageCount": perPageCount,
+                "currentPage": 1
+            },
+            dataType: "json",
+            type: "post",
+            async: false,
+            cache: false,
+            success: function(res) {
+                console.log(res)
+                if (res.code == "SUCCESS") {
+                    javaex.optTip({
+                        content: "操作成功",
+                        type: "success"
+                    });
+                    var html = "";
+                    var dateList = JSON.parse(res.dateList);
+                    var goodsList = JSON.parse(res.goodsList);
+                    var orderList = JSON.parse(res.ordersList);
+                    var userList = JSON.parse(res.userList);
+
+                    var zhuangtai = "";
+                    for (var i = 0; i < orderList.length; i++) {
+                        if (orderList[i].type == 1) {
+                            zhuangtai = "已发货"
+                        } else if (orderList[i].type == 0) {
+                            zhuangtai = "待发货"
+                        } else {
+                            zhuangtai = "已收货"
+                        }
+                        html = html + createordersInfo(orderList[i], goodsList[i], userList[i].username, zhuangtai, dateList[i]);
+                        // console.log(html)
+                    }
+                    console.log(html)
+                    $("#orderInfo").html(html);
+                    pageCount = res.pageCount;
+                    totalNum = res.totalNum;
+                    $("#page").empty();
+                    javaex.page({
+                        id: "page",
+                        pageCount: pageCount, // 总页数
+                        currentPage: 1, // 默认选中第几页
+                        perPageCount: perPageCount, // 每页显示多少条，不填时，不显示该条数选择控件
+                        isShowJumpPage: true, // 是否显示跳页
+                        totalNum: totalNum, // 总条数，不填时，不显示
+                        position: "right",
+                        callback: function(rtn) {
+                            console.log("当前选中的页数：" + rtn.pageNum);
+                            console.log("每页显示条数：" + rtn.perPageCount);
+                            $.ajax({
+                                url: "http://127.0.0.1:8080/ShopSystem/searchOrderByName",
+                                data: {
+                                    "name": sousuo,
+                                    "perPageCount": rtn.perPageCount,
+                                    "currentPage": rtn.pageNum
+                                },
+                                dataType: "json",
+                                type: "post",
+                                async: false,
+                                cache: false,
+                                success: function(res) {
+                                    console.log(res)
+                                    if (res.code == "SUCCESS") {
+                                        javaex.optTip({
+                                            content: "操作成功",
+                                            type: "success"
+                                        });
+                                        var html = "";
+                                        var dateList = JSON.parse(res.dateList);
+                                        var goodsList = JSON.parse(res.goodsList);
+                                        var orderList = JSON.parse(res.ordersList);
+                                        var userList = JSON.parse(res.userList);
+
+                                        var zhuangtai = "";
+                                        for (var i = 0; i < orderList.length; i++) {
+                                            if (orderList[i].type == 1) {
+                                                zhuangtai = "已发货"
+                                            } else if (orderList[i].type == 0) {
+                                                zhuangtai = "待发货"
+                                            } else {
+                                                zhuangtai = "已收货"
+                                            }
+                                            html = html + createordersInfo(orderList[i], goodsList[i], userList[i].username, zhuangtai, dateList[i]);
+                                            // console.log(html)
+                                        }
+                                        console.log(html)
+                                        $("#orderInfo").html(html);
+                                        pageCount = res.pageCount;
+                                        totalNum = res.totalNum;
+                                    } else {
+                                        javaex.optTip({
+                                            content: "操作失败",
+                                            type: "error"
+                                        });
+                                        javaex.alert({
+                                            content: res.code
+                                        });
+
+                                    }
+                                    javaex.render();
+                                },
+                                error: function() {
+                                    javaex.optTip({
+                                        content: "操作失败",
+                                        type: "error"
+                                    });
+                                    javaex.alert({
+                                        content: "有错误发生！"
+                                    });
+
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    javaex.optTip({
+                        content: "操作失败",
+                        type: "error"
+                    });
+                    javaex.alert({
+                        content: res.code
+                    });
+
+                }
+                javaex.render();
+            },
+            error: function() {
+                javaex.optTip({
+                    content: "操作失败",
+                    type: "error"
+                });
+                javaex.alert({
+                    content: "有错误发生！"
+                });
+
+            }
+        });
+    }
+</script>
+
+</html>

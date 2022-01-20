@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>商品页面</title>
+    <!--字体图标-->
+    <link href="../javaex/pc/css/icomoon.css" rel="stylesheet" />
+    <!--动画-->
+    <link href="../javaex/pc/css/animate.css" rel="stylesheet" />
+    <!--骨架样式-->
+    <link href="../javaex/pc/css/common.css" rel="stylesheet" />
+    <!--皮肤（缇娜）-->
+    <link href="../javaex/pc/css/skin/tina.css" rel="stylesheet" />
+    <!--jquery，不可修改版本-->
+    <script src="../javaex/pc/lib/jquery-1.7.2.min.js"></script>
+    <!--全局动态修改-->
+    <script src="../javaex/pc/js/common.js"></script>
+    <!--核心组件-->
+    <script src="../javaex/pc/js/javaex.min.js"></script>
+    <!--表单验证-->
+    <script src="../javaex/pc/js/javaex-formVerify.js"></script>
+
+    <link href="../AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css" />
+    <link href="../AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css" />
+    <link href="../basic/css/demo.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" href="../css/optstyle.css" rel="stylesheet" />
+    <link type="text/css" href="../css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/anniu.css">
+    <script type="text/javascript" src="../basic/js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="../basic/js/quick_links.js"></script>
+
+    <script type="text/javascript" src="../AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+    <script type="text/javascript" src="../js/jquery.imagezoom.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.flexslider.js"></script>
+    <script type="text/javascript" src="../js/list.js"></script>
+
+</head>
+
+<body>
+
+
+    <!--顶部导航条 -->
+    <div class="am-container header">
+        <ul class="message-l">
+            <div class="topMessage">
+                <div class="menu-hd" id="loginAndResister">
+                    <a href="login.html" target="_top" class="h">亲，请登录</a>
+                    <a href="register.html" target="_top">免费注册</a>
+                </div>
+            </div>
+        </ul>
+        <ul class="message-r">
+            <div class="topMessage home">
+                <div class="menu-hd"><a href="index.html" target="_top" class="h">商城首页</a></div>
+            </div>
+            <div class="topMessage my-shangcheng">
+                <div class="menu-hd MyShangcheng"><a id="person" href="#" target="_top"><i
+                            class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+            </div>
+            <div class="topMessage mini-cart">
+                <div class="menu-hd"><a id="mc-menu-hd" href="shopcart.html" target="_top"><i
+                            class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span></a></div>
+            </div>
+
+
+        </ul>
+    </div>
+
+    <!--悬浮搜索框-->
+
+    <div class="nav white">
+        <div class="logo"><img src="../images/logo.png" /></div>
+
+        <div class="search-bar pr">
+
+
+        </div>
+    </div>
+
+
+    <div class="clear"></div>
+    <b class="line"></b>
+    <div class="listMain">
+
+        <!--分类-->
+        <div class="nav-table">
+            <div class="long-title"><span class="all-goods">全部</span></div>
+
+        </div>
+    </div>
+    <ol class="am-breadcrumb am-breadcrumb-slash">
+
+        <li class="am-active"></li>
+    </ol>
+    <script type="text/javascript">
+        $(function () { });
+        $(window).load(function () {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                start: function (slider) {
+                    $('body').removeClass('loading');
+                }
+            });
+        });
+    </script>
+    <div class="scoll">
+        <section class="slider">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <img src="../images/01.jpg" title="pic" />
+                    </li>
+
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!--放大镜-->
+
+    <div class="item-inform">
+        <div class="clearfixLeft" id="clearcontent">
+
+            <div class="box">
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $(".jqzoom").imagezoom();
+                        $("#thumblist li a").click(function () {
+                            $(this).parents("li").addClass("tb-selected").siblings().removeClass("tb-selected");
+                            $(".jqzoom").attr('src', $(this).find("img").attr("mid"));
+                            $(".jqzoom").attr('rel', $(this).find("img").attr("big"));
+                        });
+                    });
+                </script>
+
+                <div class="tb-booth tb-pic tb-s310" id="photo">
+                    <a href="../images/01.jpg">
+                        <img src="../images/01_mid.jpg" alt="细节展示放大镜特效" rel="../images/01.jpg" class="jqzoom" />
+                    </a>
+                </div>
+                <ul class="tb-thumb" id="thumblist">
+
+                </ul>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+
+        <div class="clearfixRight">
+
+            <!--名称-->
+            <div class="tb-detail-hd">
+                <h1 id="info">
+                    未找到商品
+                </h1>
+                <h1 id="info1">
+                    未找到商品
+                </h1>
+            </div>
+            <div class="tb-detail-list">
+                <!--价格-->
+                <div class="tb-detail-price">
+                    <li class="price iteminfo_price">
+                        <dt>单价</dt>
+                        <dd><em>¥</em><b class="sys_item_price" id="info2">未找到商品</b> </dd>
+                    </li>
+
+
+                    <div class="clear"></div>
+                </div>
+
+                <!--地址-->
+                <dl class="iteminfo_parameter freight">
+
+                </dl>
+                <div class="clear"></div>
+                <div class="clear"></div>
+                <!--各种规格-->
+                <dl class="iteminfo_parameter sys_item_specpara">
+                    <dd>
+                        <!--操作页面-->
+
+                        <div class="theme-popover-mask"></div>
+                        <div class="theme-popover">
+                            <div class="theme-span"></div>
+                            <div class="theme-poptit">
+                                <a href="javascript:;" title="关闭" class="close">×</a>
+                            </div>
+                            <div class="theme-popbod dform">
+                                <form class="theme-signin" name="loginform" action="" method="post">
+                                    <div class="theme-signin-left">
+                                        <div class="theme-options">
+                                            <div class="cart-title number">数量</div>
+                    <dd>
+                        <input id="min" onclick="dec()" class="am-btn am-btn-default" name="" type="button" value="-" />
+                        <input id="info3" name="" type="text" value="1" style="width:30px;" />
+                        <input id="add" onclick="addNum()" class="am-btn am-btn-default" name="" type="button"
+                            value="+" />
+
+                        <span id="Stock" class="tb-hidden">库存<span class="stock" id="info4">10</span>件</span>
+
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="bt6"><a id="LikBasket" title="加入购物车" href="#"
+                                onclick="addtoCart()"><i></i>加入购物车</a></button>
+
+                    </dd>
+
+            </div>
+            <div class="clear"></div>
+
+            <div class="btn-op">
+                <div class="btn am-btn am-btn-warning">确认</div>
+                <div class="btn close am-btn am-btn-warning">取消</div>
+            </div>
+        </div>
+
+
+        </form>
+    </div>
+    </div>
+
+    </dd>
+    </dl>
+    <div class="clear"></div>
+    <!--活动	-->
+
+    </div>
+
+    <div class="pay">
+        <li>
+
+        </li>
+    </div>
+
+    </div>
+
+    <div class="clear"></div>
+
+    </div>
+
+
+
+
+    <div class="footer ">
+        <div class="footer-hd ">
+            <p>
+                <a href="#">商城首页</a>
+                <b>|</b>
+                <a href="#">物流</a>
+            </p>
+        </div>
+        <div class="footer-bd ">
+            <p>
+                <em>©常州ccit版权所有</em>
+            </p>
+        </div>
+    </div>
+    </div>
+
+    </div>
+    </div>
+    <!--菜单 -->
+    <div class=tip>
+        <div id="sidebar">
+            <div id="wrap">
+                <div id="prof" class="item">
+                    <a href="#">
+                        <span class="setting"></span>
+                    </a>
+                    <div class="ibar_login_box status_login " id="userInf">
+                        <div class="avatar_box ">
+                            <p class="avatar_imgbox "><img src="../images/no-img_mid_.jpg " /></p>
+                            <ul class="user_info ">
+                                <li>
+                                    <br /> 你还没有登录
+                                    <br /> 左上角去登录
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- <div class="login_btnbox ">
+                            <a onclick="toMyOrder()" class="login_order ">我的订单</a> &nbsp;&nbsp;&nbsp;
+                            <a onclick="logout()" class="login_order ">注销登录</a>
+                        </div> -->
+
+
+
+                    </div>
+
+                </div>
+                <div id="shopCart" class="item">
+                    <a href="shopcart.html">
+                        <span class="message"></span>
+                    </a>
+                    <p>
+                        购物车
+                    </p>
+
+                </div>
+                <div class="quick_toggle">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+<script>
+    window.onload = function () {
+        console.log("123");
+        var user = JSON.parse(sessionStorage.getItem("user"));
+        console.log(user)
+        if (user != null) {
+            $("#loginAndResister").css("display", "none"); //隐藏div
+            var html = `
+            <div class="avatar_box ">
+                            <p class="avatar_imgbox "><img src="../images/no-img_mid_.jpg " /></p>
+                            <ul class="user_info ">
+                                <li>用户名：
+                                    ` + user.username + `
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="login_btnbox ">
+                            <a onclick="toMyOrder()" class="login_order ">我的订单</a> &nbsp;&nbsp;&nbsp;
+                            <a onclick="logout()" class="login_order ">注销登录</a>
+                        </div> `
+            $("#userInf").html(html);
+        } else {
+            $("#person").attr("href", "login.html");
+            console.log("123");
+        }
+
+        var goods = JSON.parse(sessionStorage.getItem("goods"));
+        var business = JSON.parse(sessionStorage.getItem("business"));
+        console.log(goods)
+        console.log(business)
+        if (goods != null && business != null) {
+            $("#info").html(goods.name);
+            $("#info1").html(goods.info);
+            $("#info2").html(goods.price);
+            // $("#info3").html(html);
+            $("#info4").html(goods.stock);
+            var html = `<a href="http://localhost:8080/ShopSystem/images/` + goods.imgUrl + `">
+                        <img style="width:350px;height:350px" src="http://localhost:8080/ShopSystem/images/` + goods.imgUrl + `" alt="细节展示放大镜特效" rel="http://localhost:8080/ShopSystem/images/` + goods.imgUrl + `" class="jqzoom" />
+                    </a>`;
+            $("#photo").html(html);
+        } else {
+            javaex.optTip({
+                content: "商品信息获取失败",
+                type: "error"
+            });
+        }
+        javaex.render();
+    }
+
+    var stock = JSON.parse(sessionStorage.getItem("goods")).stock;
+
+    function dec() {
+        console.log(1)
+        var num = $("#info3");
+        if (Number(num.val()) > 1) {
+            num.val(Number(num.val()) - 1);
+        } else {
+            javaex.alert({
+                content: "不能再少啦，不买就算了"
+            });
+        }
+    }
+
+    function addNum() {
+        var num = $("#info3");
+        console.log(2)
+        if (Number(num.val()) < stock) {
+            num.val(Number(num.val()) + 1);
+        } else {
+            javaex.alert({
+                content: "不能再多啦，库存没有了"
+            });
+        }
+    }
+
+    function toMyCart() {
+        window.location.href = "shopcart.html"
+    }
+
+    function toLogin() {
+        window.location.href = "login.html"
+    }
+
+    function addtoCart() {
+        var goodsId = JSON.parse(sessionStorage.getItem("goods")).goodsId;
+        if (sessionStorage.getItem("user") == null) {
+            javaex.alert({
+                content: "你还没有登录",
+                callback: "toLogin()"
+            });
+        }
+        var userId = JSON.parse(sessionStorage.getItem("user")).userId;
+
+        var num = $("#info3").val();
+        $.ajax({
+            type: "post",
+            //后端需要调用的地址
+            url: "http://127.0.0.1:8080/ShopSystem/addToCart",
+            dataType: "json",
+            data: {
+                "goodsId": goodsId,
+                "userId": userId,
+                "num": num,
+            },
+            // contentType: "json/application",
+            //设置超时
+            timeout: 10000,
+            async: true,
+            success: function (response) {
+                console.log(response);
+                if (response.code == "SUCCESS") {
+
+                    javaex.alert({
+                        content: "添加成功",
+                        callback: "toMyCart()"
+                    });
+
+                } else {
+                    javaex.alert({
+                        content: "添加失败"
+                    });
+                }
+
+            },
+            error: function (data) {
+                javaex.optTip({
+                    content: "操作失败",
+                    type: "error"
+                });
+            },
+            //调用执行后调用的函数
+            complete: function (XMLHttpRequest, textStatus) {
+                if (textStatus == 'timeout') {
+                    uploadAjax.abort(); //取消请求
+                    //超时提示：请求超时，请重试
+                    javaex.optTip({
+                        content: "操作失败",
+                        type: "error"
+                    });
+                    javaex.alert({
+                        content: "请求超时，请重试"
+                    });
+                }
+            }
+        });
+    }
+</script>
+
+</html>

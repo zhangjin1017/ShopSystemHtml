@@ -1,0 +1,43 @@
+.bt1 {
+    height: 40px;
+    padding: 0 2em;
+    background-color: rgba(172, 193, 220, 1);
+    color: #fff;
+    border: none;
+    outline: none;
+    font-size: 1.6em;
+    cursor: pointer;
+    transition: all ease 800ms;
+    width: 200px;
+    position: relative;
+}
+
+.bt1:hover {
+    background-color: rgba(207, 220, 230, 1);
+    color: red;
+}
+
+.bt1:before,
+.bt1:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 2px;
+    background-color: red;
+    transition: all ease 400ms;
+}
+
+.bt1:after {
+    top: inherit;
+    right: inherit;
+    left: 0;
+    bottom: 0;
+}
+
+.bt1:hover:after,
+.bt1hover:before {
+    width: 100%;
+    transition: all ease 800ms;
+}

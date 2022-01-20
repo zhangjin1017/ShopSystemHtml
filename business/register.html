@@ -1,0 +1,171 @@
+<html>
+
+<head>
+    <title>后台管理</title>
+    <!--字体图标-->
+    <link href="../javaex/pc/css/icomoon.css" rel="stylesheet" />
+    <!--动画-->
+    <link href="../javaex/pc/css/animate.css" rel="stylesheet" />
+    <!--骨架样式-->
+    <link href="../javaex/pc/css/common.css" rel="stylesheet" />
+    <!--皮肤（缇娜）-->
+    <link href="../javaex/pc/css/skin/tina.css" rel="stylesheet" />
+    <!--jquery，不可修改版本-->
+    <script src="../javaex/pc/lib/jquery-1.7.2.min.js"></script>
+    <!--全局动态修改-->
+    <script src="../javaex/pc/js/common.js"></script>
+    <!--核心组件-->
+    <script src="../javaex/pc/js/javaex.min.js"></script>
+    <!--表单验证-->
+    <script src="../javaex/pc/js/javaex-formVerify.js"></script>
+    <link href="../css/index.css" rel="stylesheet" />
+    <style>
+        .file-container .cover {
+            width: 320px;
+            height: 140px;
+        }
+        
+        .file-container .cover img {
+            margin: 20px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-wrap">
+        <div class="main-cont-wrap login-model">
+            <form id="form">
+                <div class="form-title">
+                    <span>后台注册</span>
+                    <a href="login.html" style="font-size: 21px;margin-left: 170px;">登录</a>
+                </div>
+                <div class="form-item">
+                    <span class="form-txt">账号：</span>
+                    <input type="text" class="form-input original" id="username" name="loginName" placeholder="请输入注册账号" data-type="必填" error-pos="32" />
+                </div>
+                <div class="form-item">
+                    <span class="form-txt">密码：</span>
+                    <input type="password" class="form-input original" id="password" placeholder="请输入密码" data-type="必填" error-pos="32" />
+                </div>
+
+                <div class="form-item">
+                    <span class="form-txt">店铺名:</span>
+                    <input type="text" class="form-input original" id="shop_name" placeholder="请输入店铺名称" data-type="必填" error-pos="32" />
+                </div>
+
+                <div class="form-item">
+                    <span class="form-txt">手机号：</span>
+                    <input type="text" class="form-input original" id="phone" placeholder="请输入手机号" data-type="必填" error-pos="32" />
+                </div>
+                <div id="container" class="file-container">
+                    <div class="cover">
+                        <!--如果不需要回显图片，src留空即可-->
+                        <img class="upload-img-cover" src="" />
+                        <input type="file" class="file" id="upload" accept="image/gif, image/jpeg, image/jpg, image/png" />
+                    </div>
+                </div>
+                <div class="form-btn">
+                    <input type="button" class="ui-button" id="save" value="注册" onclick="register()" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+</body>
+
+<script>
+    var imgUrl = "";
+    javaex.upload({
+        type: "image",
+        url: "http://127.0.0.1:8080/ShopSystem/uploadImage", // 请求路径
+        id: "upload", // <input type="file" />的id
+        containerId: "container", // 容器id
+        param: "file", // 参数名称，Spring中与MultipartFile的参数名保持一致
+        dataType: "url", // 返回的数据类型：base64 或 url
+        uploadText: "上传营业执照",
+        callback: function(rtn) {
+            console.log(rtn);
+            $("#container img").attr("src", "http://127.0.0.1:8080/ShopSystem/business/" + rtn.imgUrl);
+            if (rtn.code == "000000") {
+                $("#container img").attr("src", "http://127.0.0.1:8080/ShopSystem/business/" + rtn.imgUrl);
+                imgUrl = rtn.imgUrl;
+            } else {
+                javaex.optTip({
+                    content: "添加失败",
+                    type: "error"
+                });
+            }
+        }
+    });
+
+    function register() {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        var shop_name = $("#shop_name").val();
+        var phone = $("#phone").val();
+
+        if (username == null) {
+            javaex.alert({
+                content: "用户名不能为空！"
+            });
+            return;
+        }
+        if (password == null) {
+            javaex.alert({
+                content: "密码不能为空！"
+            });
+            return;
+        }
+        if (shop_name == null) {
+            javaex.alert({
+                content: "店铺名不能为空！"
+            });
+            return;
+        }
+        if (phone == null) {
+            javaex.alert({
+                content: "手机号不能为空！"
+            });
+            return;
+        }
+
+        $.ajax({
+            url: "http://127.0.0.1:8080/ShopSystem/businessRegister",
+            data: {
+                "username": username,
+                "password": password,
+                "shop_name": shop_name,
+                "phone": phone,
+                "imgUrl": imgUrl
+            },
+            dataType: "json",
+            type: "post",
+            async: false,
+            cache: false,
+            success: function(res) {
+                console.log(res)
+                if (res.code == "SUCCESS") {
+                    javaex.alert({
+                        content: "注册成功！"
+                    });
+                } else {
+                    javaex.alert({
+                        content: res.code
+                    });
+                }
+            },
+            error: function() {
+                javaex.alert({
+                    content: "注册失败，有错误发生"
+                });
+
+            }
+        })
+
+
+    }
+</script>
+
+</html>

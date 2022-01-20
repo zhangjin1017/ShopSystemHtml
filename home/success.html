@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>付款成功页面</title>
+    <!--字体图标-->
+    <link href="../javaex/pc/css/icomoon.css" rel="stylesheet" />
+    <!--动画-->
+    <link href="../javaex/pc/css/animate.css" rel="stylesheet" />
+    <!--骨架样式-->
+    <link href="../javaex/pc/css/common.css" rel="stylesheet" />
+    <!--皮肤（缇娜）-->
+    <link href="../javaex/pc/css/skin/tina.css" rel="stylesheet" />
+    <!--jquery，不可修改版本-->
+    <script src="../javaex/pc/lib/jquery-1.7.2.min.js"></script>
+    <!--全局动态修改-->
+    <script src="../javaex/pc/js/common.js"></script>
+    <!--核心组件-->
+    <script src="../javaex/pc/js/javaex.min.js"></script>
+    <!--表单验证-->
+    <script src="../javaex/pc/js/javaex-formVerify.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../AmazeUI-2.4.2/assets/css/amazeui.css" />
+    <link href="../AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="../basic/css/demo.css" rel="stylesheet" type="text/css" />
+
+    <link href="../css/sustyle.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../basic/js/jquery-1.7.min.js"></script>
+
+</head>
+
+<body>
+
+
+    <!--顶部导航条 -->
+    <div class="am-container header">
+        <ul class="message-l">
+            <div class="topMessage">
+                <div class="menu-hd" id="loginAndResister">
+                    <a href="login.html" target="_top" class="h">亲，请登录</a>
+                    <a href="register.html" target="_top">免费注册</a>
+                </div>
+            </div>
+        </ul>
+        <ul class="message-r">
+            <div class="topMessage home">
+                <div class="menu-hd"><a href="index.html" target="_top" class="h">商城首页</a></div>
+            </div>
+            <div class="topMessage my-shangcheng">
+                <div class="menu-hd MyShangcheng"><a id="person" href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+            </div>
+            <div class="topMessage mini-cart">
+                <div class="menu-hd"><a id="mc-menu-hd" href="shopcart.html" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span></a></div>
+            </div>
+
+
+        </ul>
+    </div>
+
+    <!--悬浮搜索框-->
+
+    <div class="nav white">
+
+        <p style="height: 2px; background-color: tomato;margin-top: 70px;"></p>
+    </div>
+
+    <div class="clear"></div>
+
+
+
+    <div class="take-delivery">
+        <div class="status">
+            <h2>您已成功付款</h2>
+            <div class="successInfo" id="info">
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer ">
+        <div class="footer-hd ">
+            <p>
+                <a href="#">商城首页</a>
+                <b>|</b>
+                <a href="#">物流</a>
+            </p>
+        </div>
+        <div class="footer-bd ">
+            <p>
+                <em>©常州ccit版权所有</em>
+            </p>
+        </div>
+    </div>
+    </div>
+
+
+</body>
+<script>
+    var price = sessionStorage.getItem("price");
+    var chooseAddress = JSON.parse(sessionStorage.getItem("chooseAddress"));
+    var name = sessionStorage.getItem("name");
+    var phone = sessionStorage.getItem("phone");
+    window.onload = function() {
+        var html5 = "";
+        html5 = `
+        <ul>
+                    <li>付款金额<em>¥` + price + `</em></li>
+                    <div class="user-info">
+                        <p>收货人：` + name + `</p>
+                        <p>联系电话：` + phone + `</p>
+                        <p>收货地址：` + chooseAddress.province + "&nbsp;" + chooseAddress.city + "&nbsp;" + chooseAddress.district + "&nbsp;" + chooseAddress.address + "&nbsp;" + `</p>
+                    </div>
+                    请认真核对您的收货信息，如有错误请联系客服
+
+                </ul>
+                <div class="option">
+                    <span class="info">您可以</span>
+                    <a href="../person/order.html" class="J_MakePoint">查看<span>已买到的宝贝</span></a>
+                </div>
+        `;
+        $("#info").html(html5);
+        console.log("123");
+        var user = JSON.parse(sessionStorage.getItem("user"));
+        console.log(user)
+        if (user == null) {
+
+            $("#person").attr("href", "login.html");
+            $("#mc-menu-hd").attr("href", "login.html");
+        } else {
+            $("#loginAndResister").css("display", "none"); //隐藏div
+        }
+
+    }
+</script>
+
+</html>
